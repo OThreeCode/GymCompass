@@ -11,7 +11,7 @@
 
             @error('not_valid')
                <div>
-                  <span class="text-sm bg-red-500">Não foi possível fazer o login.</span>
+                  <span class="text-sm text-red-500">Não foi possível fazer o login.</span>
                </div>
             @enderror
 
@@ -38,7 +38,7 @@
                   name="password" type="password">
                @error('password')
                   <div>
-                     <span class="text-sm bg-red-500">{{ $message }}</span>
+                     <small class="text-sm text-red-500">{{ $message }}</small>
                   </div>
                @enderror
             </div>
@@ -47,7 +47,7 @@
                   class="w-full px-4 py-2 font-bold text-white bg-green-500 rounded hover:bg-green-700 focus:outline-none focus:shadow-outline" 
                   type="submit"
                >
-                  Enviar
+                  Entrar
                </button>
             </div>
 

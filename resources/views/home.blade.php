@@ -3,7 +3,7 @@
 @section('title', 'Home')
 
 @section('content')
-   <div class="bg-black text-red-500">
+   <div class="text-red-500 bg-black">
       Olar
    </div>
 @endsection

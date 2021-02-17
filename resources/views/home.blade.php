@@ -3,7 +3,9 @@
 @section('title', 'Home')
 
 @section('content')
-   <div class="text-red-500 bg-black">
-      Olar
+   <div class="">
+      <div class="">
+         <h2>Bem-vindo ao Gymcompass!</h2>
+      </div>
    </div>
 @endsection

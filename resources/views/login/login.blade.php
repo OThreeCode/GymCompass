@@ -3,38 +3,55 @@
 @section('title', 'Login')
 
 @section('content')
-   <div>
-      <form method="post" action="{{ route('login') }}">
-         @csrf
+   <div class="flex items-center justify-center h-screen">
+      <div class="w-1/4 px-6 pt-6 pb-8 mb-4 bg-white shadow-md ">
+         <h1 class="mb-1 -mt-2 text-xl font-bold text-center text-gray-700">LOGIN</h1>
+         <form method="post" action="{{ route('login') }}">
+            @csrf
 
-         @error('not_valid')
-            <div>
-               <span class="text-sm bg-red-500">There's something wrong, motherfucker!</span>
+            @error('not_valid')
+               <div>
+                  <span class="text-sm bg-red-500">Não foi possível fazer o login.</span>
+               </div>
+            @enderror
+
+            <div class="mb-4">
+               <label class="block mb-2 text-sm font-bold">
+                  Email
+               </label>
+               <input 
+                  class="@error('email') border-red-500 @enderror w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearence-none focus:outline-none focus:shadow-outline" 
+                  name="email" type="text"
+               />
+               @error('email')
+                  <div>
+                     <small class="text-sm text-red-500">{{ $message }}</small>
+                  </div>
+               @enderror
             </div>
-         @enderror
+            <div class="mb-4">
+               <label class="block mb-2 text-sm font-bold">
+                  Senha
+               </label>
+               <input
+                  class="@error('password') border-red-500 @enderror w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearence-none focus:outline-none focus:shadow-outline" 
+                  name="password" type="password">
+               @error('password')
+                  <div>
+                     <span class="text-sm bg-red-500">{{ $message }}</span>
+                  </div>
+               @enderror
+            </div>
+            <div class="flex items-center justify-between">
+               <button
+                  class="w-full px-4 py-2 font-bold text-white bg-green-500 rounded hover:bg-green-700 focus:outline-none focus:shadow-outline" 
+                  type="submit"
+               >
+                  Enviar
+               </button>
+            </div>
 
-         <div>
-            <label>Email:</label>
-            <input name="email" type="text">
-            @error('email')
-               <div>
-                  <span class="text-sm bg-red-500">{{ $message }}</span>
-               </div>
-            @enderror
-         </div>
-         <div>
-            <label>Senha:</label>
-            <input name="password" type="password">
-            @error('password')
-               <div>
-                  <span class="text-sm bg-red-500">{{ $message }}</span>
-               </div>
-            @enderror
-         </div>
-         <div>
-            <button type="submit">Enviar</button>
-         </div>
-
-      </form>
+         </form>
+      </div>
    </div>
 @endsection

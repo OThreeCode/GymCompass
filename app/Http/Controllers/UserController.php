@@ -8,6 +8,11 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    public function index()
+    {
+        return redirect()->back()->with('users', User::all());
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -21,15 +26,25 @@ class UserController extends Controller
             ])],
         ]);
 
-        $user           = new User();
-        $user->name     = $request->get('name');
-        $user->email    = $request->get('email');
-        $user->role     = $request->get('role');
-        $user->password = bcrypt($request->get('[password'));
+        User::create([
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'role'     => $request->role,
+            'password' => bcrypt($request->password),
+        ]);
 
-        $user->save();
-
-        return redirect()->route('home')->with('message', "Usuário cadastrado!");
+        return redirect()->back()->with('message', 'Usuário cadastrado com sucesso.');
     }
-    
+
+    public function show(User $user)
+    {
+        return redirect()->back()->with('user', $user);
+    }
+
+    public function delete(User $user)
+    {
+        $user->delete();
+
+        return redirect()->back()->with('message', 'Usuário deletado com sucesso.');
+    }
 }

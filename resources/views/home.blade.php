@@ -97,4 +97,44 @@
       </form>
    </div>
 </div>
+
+<div class="flex items-center justify-center h-screen">
+   <div class="w-1/4 px-6 pt-6 pb-8 mb-4 bg-white shadow-md ">
+      <h1 class="mb-1 -mt-2 text-xl font-bold text-center text-gray-700">GERENCIAR USUÁRIOS</h1>
+      @if($users->isNotEmpty())
+      <table>
+         <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Função</th>
+            <th>Ações</th>
+         </tr>
+         @foreach($users as $user)
+         <tr>
+            <td>
+               {{ $user->name }}
+            </td>
+            <td>
+               {{ $user->email }}
+            </td>
+            <td>
+               {{ $user->role }}
+            </td>
+            <td>
+               <a href="{{ route('users.edit', ['user' => $user]) }}">Editar</a>
+               @if($user->role != 'Admin')
+               <a href="{{ route('users.delete', ['user' => $user]) }}">Remover</a>
+               @endif
+            </td>
+         </tr>
+         @endforeach
+      </table>
+      @else
+         <div class="text-red-500">
+            Nenhum usuário cadastrado.
+         </div>
+      @endif
+   </div>
+</div>
+
 @endsection

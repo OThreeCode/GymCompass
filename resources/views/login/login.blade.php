@@ -4,15 +4,15 @@
 
 @section('content')
 
-<div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+<div class="flex flex-col justify-center min-h-screen py-12 bg-gray-50 sm:px-6 lg:px-8">
    <div class="sm:mx-auto sm:w-full sm:max-w-md">
-      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+      <h2 class="mt-6 text-3xl font-extrabold text-center text-gray-900">
          Entre na sua conta
       </h2>
    </div>
  
    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-      <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+      <div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
          <form class="space-y-6" action="{{ route('login') }}" method="POST">
             @csrf
             
@@ -59,7 +59,7 @@
             </div>
 
             <div>
-               <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg--600 hover:bg--700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+               <button type="submit" class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg--600 hover:bg--700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                   Entrar
                </button>
             </div>

@@ -50,7 +50,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
         $request->validate([
             'name'  => ['required', 'string'],
@@ -62,12 +62,11 @@ class UserController extends Controller
             ])],
         ]);
 
-        $user = User::find($id);
-        $user->name  = $request->name;
-        $user->email = $request->email;
-        $user->role  = $request->role;
-
-        $user->save();
+        $user->update([
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'role'     => $request->role,
+        ]);
 
         return redirect()->route('users.index');
     }

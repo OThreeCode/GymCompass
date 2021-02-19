@@ -10,7 +10,9 @@ class UserController extends Controller
 {
     public function index()
     {
-        return redirect()->back()->with('users', User::all());
+        return view('/home', [
+            'users' => User::all(),
+        ]);
     }
 
     public function store(Request $request)
@@ -39,6 +41,35 @@ class UserController extends Controller
     public function show(User $user)
     {
         return redirect()->back()->with('user', $user);
+    }
+
+    public function edit(User $user)
+    {
+        return view('users.edit', [
+            'user' => $user,
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name'  => ['required', 'string'],
+            'email' => ['required', 'string', 'email'],
+            'role'  => ['required', Rule::in([
+                User::ROLE_ADMIN,
+                User::ROLE_CLIENT,
+                User::ROLE_PERSONAL,
+            ])],
+        ]);
+
+        $user = User::find($id);
+        $user->name  = $request->name;
+        $user->email = $request->email;
+        $user->role  = $request->role;
+
+        $user->save();
+
+        return redirect()->route('users.index');
     }
 
     public function delete(User $user)

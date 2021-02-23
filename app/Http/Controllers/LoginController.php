@@ -17,7 +17,7 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            return redirect()->route('users.index');
+            return redirect()->route('home');
         }
         
         return back()->withErrors([

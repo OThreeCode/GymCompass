@@ -54,15 +54,12 @@
                                 <span class="block">Uma forma melhor de</span>
                                 <span class="block text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-green-400">conseguir resultados.</span>
                             </h1>
-                            <p class="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                                Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui Lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat.
-                            </p>
                             <div class="mt-10 sm:mt-12">
                                 <form action="#" class="sm:max-w-xl sm:mx-auto lg:mx-0">
                                     <div class="sm:flex">
                                         <div class="flex-1 min-w-0">
                                             <label for="email" class="sr-only">Email</label>
-                                            <input id="email" type="email" placeholder="Entre seu email" class="block w-full px-4 py-3 text-base text-gray-900 placeholder-gray-500 border-0 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-400 focus:ring-offset-gray-900">
+                                            <input id="email" type="email" placeholder="Cadastre o seu email" class="block w-full px-4 py-3 text-base text-gray-900 placeholder-gray-500 border-0 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-400 focus:ring-offset-gray-900">
                                         </div>
                                         <div class="mt-3 sm:mt-0 sm:ml-3">
                                             <button type="submit" class="block w-full px-4 py-3 font-medium text-white rounded-md shadow bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-400 focus:ring-offset-gray-900">Começar teste gratuito</button>

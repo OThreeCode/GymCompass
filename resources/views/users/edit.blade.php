@@ -9,7 +9,9 @@
            <h1 class="text-2xl font-semibold text-gray-900">Editar {{ $user->name }}</h1>
         </div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-            <form class="space-y-8 divide-y divide-gray-200">
+            <form method="post" ction="{{ route('users.update', ['user' => $user->id]) }}" class="space-y-8 divide-y divide-gray-200">
+                @method('PATCH')
+                @csrf
                 <div class="pt-8">
                     <div>
                         <h3 class="text-lg leading-6 font-medium text-gray-900">
@@ -26,7 +28,12 @@
                             Nome
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input type="text" name="name" id="name" class="max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                            <input type="text" name="name" id="name" value="{{ $user->name }}" class="@error('name') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                            @error('name')
+                                <div>
+                                    <small class="text-sm text-red-500">{{ $message }}</small>
+                                </div>
+                            @enderror
                         </div>
                     </div>
 
@@ -35,7 +42,12 @@
                             Email
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input id="email" name="email" type="email" class="max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                            <input id="email" name="email" type="email" value="{{ $user->email }}" class="@error('email') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                            @error('email')
+                                <div>
+                                    <small class="text-sm text-red-500">{{ $message }}</small>
+                                </div>
+                            @enderror
                         </div>
                     </div>
 
@@ -44,12 +56,23 @@
                             Função
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <select id="role" name="role" class="max-w-lg block focus:ring-green-500 focus:border-green-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
-                                <option>Selecione uma opção...</option>
-                                <option>Administrador(a)</option>
-                                <option>Personal Trainer</option>
-                                <option>Aluno(a)</option>
+                            <select id="role" name="role" class="@error('role') border-red-500 @enderror max-w-lg block focus:ring-green-500 focus:border-green-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                                <option value="">Selecione uma opção...</option>
+                                <option value="Admin" @if($user->role === "Admin") selected @endif>
+                                    Administrador(a)
+                                </option>
+                                <option value="Personal" @if($user->role === "Personal") selected @endif>
+                                    Personal Trainer
+                                </option>
+                                <option value="Client" @if($user->role === "Client") selected @endif>
+                                    Aluno(a)
+                                </option>
                             </select>
+                            @error('role')
+                                <div>
+                                    <small class="text-sm text-red-500">{{ $message }}</small>
+                                </div>
+                            @enderror
                         </div>
                     </div>
                 </div>

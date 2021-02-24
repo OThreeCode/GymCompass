@@ -17,7 +17,7 @@ Route::middleware(['auth'])->group(function () {
 
    Route::get('/users', [UserController::class, 'index'])->name('users.index');
    Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');   
-   //Route::get('/users/{user}', [UserController::class, 'delete'])->name('users.delete');
+   Route::get('/users/delete/{user}', [UserController::class, 'delete'])->name('users.delete'); // this is weird, fix it later
    Route::post('/users', [UserController::class, 'store'])->name('users.store');
    Route::patch('/users/{user}', [UserController::class, 'update'])->name('users.update');
    

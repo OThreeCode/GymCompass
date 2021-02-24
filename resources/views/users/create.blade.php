@@ -9,7 +9,7 @@
            <h1 class="text-2xl font-semibold text-gray-900">Cadastrar Usuário</h1>
         </div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-            <form method="post" ction="{{ route('users.update', ['user' => $user->id]) }}" class="space-y-8 divide-y divide-gray-200">
+            <form method="post" action="{{ route('users.store') }}" class="space-y-8 divide-y divide-gray-200">
                 @csrf
                 <div class="pt-8">
                     <div>
@@ -68,6 +68,34 @@
                                 </option>
                             </select>
                             @error('role')
+                                <div>
+                                    <small class="text-sm text-red-500">{{ $message }}</small>
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                        <label for="password" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            Senha
+                        </label>
+                        <div class="mt-1 sm:mt-0 sm:col-span-2">
+                            <input type="password" name="password" id="password" class="@error('password') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                            @error('password')
+                                <div>
+                                    <small class="text-sm text-red-500">{{ $message }}</small>
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                        <label for="password_confirmation" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            Confirmação de senha
+                        </label>
+                        <div class="mt-1 sm:mt-0 sm:col-span-2">
+                            <input type="password" name="password_confirmation" id="password_confirmation" class="@error('password_confirmation') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                            @error('password_confirmation')
                                 <div>
                                     <small class="text-sm text-red-500">{{ $message }}</small>
                                 </div>

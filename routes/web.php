@@ -13,6 +13,7 @@ Route::middleware(['auth'])->group(function () {
    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
    
    Route::view('/home', 'home')->name('home');
+   Route::view('/users/create', 'users.create')->name('users.create');
 
    Route::get('/users', [UserController::class, 'index'])->name('users.index');
    Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');   

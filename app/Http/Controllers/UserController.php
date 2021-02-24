@@ -33,7 +33,7 @@ class UserController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        return redirect()->back()->with('message', 'Usuário cadastrado com sucesso.');
+        return view('users.index', ['users' => User::all()]);
     }
 
     public function show(User $user)

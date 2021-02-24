@@ -5,8 +5,13 @@
 @section('content')
 <main class="flex-1 relative z-0 overflow-y-auto focus:outline-none" tabindex="0">
    <div class="py-6">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between">
          <h1 class="text-2xl font-semibold text-gray-900">Usuários</h1>
+         <div class="mb-2">
+            <a href="users/create" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+               Cadastrar Usuários
+            </a>
+         </div>
       </div>
       <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
          <div class="py-4">

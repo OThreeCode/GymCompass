@@ -10,9 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        return view('/home', [
-            'users' => User::all(),
-        ]);
+        return view('users.index', ['users' => User::all()]);
     }
 
     public function store(Request $request)
@@ -35,19 +33,12 @@ class UserController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        return redirect()->back()->with('message', 'Usuário cadastrado com sucesso.');
+        return view('users.index', ['users' => User::all()]);
     }
 
     public function show(User $user)
     {
-        return redirect()->back()->with('user', $user);
-    }
-
-    public function edit(User $user)
-    {
-        return view('users.edit', [
-            'user' => $user,
-        ]);
+        return view('users.edit', ['user' => $user]);
     }
 
     public function update(Request $request, User $user)

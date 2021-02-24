@@ -4,10 +4,6 @@ module.exports = {
   purge: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    colors: {
-      teal: colors.teal,
-      cyan: colors.cyan,
-    }
   },
   variants: {
     extend: {},

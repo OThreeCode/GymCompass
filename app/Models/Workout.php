@@ -8,21 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $id
  * @property string $name
- * @property string $muscle_group
- * @property int $sets
- * @property int $reps
- * @property string $equipment
  */
-class Exercise extends Model
+class Workout extends Model
 {
     use HasFactory;
-    
+
     public $timestamps = false;
 
     protected $guarded = [];
 
-    public function workouts()
+    public function exercises()
     {
-        return $this->belongsToMany(Workout::class);
+        return $this->belongsToMany(Exercise::class);
     }
 }

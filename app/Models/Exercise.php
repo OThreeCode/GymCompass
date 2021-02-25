@@ -16,4 +16,8 @@ use Illuminate\Database\Eloquent\Model;
 class Exercise extends Model
 {
     use HasFactory;
+    
+    public $timestamps = false;
+
+    protected $guarded = [];
 }

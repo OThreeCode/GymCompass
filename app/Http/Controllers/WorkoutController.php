@@ -15,9 +15,9 @@ class WorkoutController extends Controller
 
     public function create()
     {
-        // $exercises = Exercise::all();
-        // return view('workouts.create', ['exercises' => $exercises]);
-        return view('workouts.create');
+        $exercises = Exercise::all();
+        return view('workouts.create', ['exercises' => $exercises]);
+        // return view('workouts.create');
     }
 
     public function store(Request $request)

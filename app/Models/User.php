@@ -28,11 +28,16 @@ class User extends Authenticatable
     const ROLE_PERSONAL = 'Personal';
     const ROLE_CLIENT   = 'Client';
 
-    protected $guarded = [];  
+    protected $guarded = [];
 
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function workout()
+    {
+        return $this->belongsTo(Workout::class);
+    }
 
     public function isAdmin()
     {
@@ -45,5 +50,4 @@ class User extends Authenticatable
 
         return $this;
     }
-
 }

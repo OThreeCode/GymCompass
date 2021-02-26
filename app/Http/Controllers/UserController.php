@@ -33,7 +33,7 @@ class UserController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        return redirect()->route('users.index')
+        return redirect()->route('users.index');
     }
 
     public function show(User $user)

@@ -21,4 +21,9 @@ class Workout extends Model
     {
         return $this->belongsToMany(Exercise::class);
     }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

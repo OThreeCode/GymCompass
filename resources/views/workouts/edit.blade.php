@@ -9,7 +9,7 @@
            <h1 class="text-2xl font-semibold text-gray-900">Editar {{ $workout->name }}</h1>
         </div>
         <div class="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
-            <form method="post" action="{{ route('users.update', ['user' => $workout->id]) }}" class="space-y-8 divide-y divide-gray-200">
+            <form method="post" action="{{ route('workouts.update', ['workout' => $workout->id]) }}" class="space-y-8 divide-y divide-gray-200">
                 @method('PATCH')
                 @csrf
                 <div class="pt-8">

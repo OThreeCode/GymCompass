@@ -48,17 +48,26 @@ class WorkoutController extends Controller
         return view('workouts.edit', ['workout' => $workout, 'exercises' => Exercise::all()]);
     }
 
-    public function update(Request $request, Exercise $exercise)
+    public function update(Request $request, Workout $workout)
     {
         $request->validate([
-            'name' => ['required', 'string'],
-            'day'  => ['required'],
+            'name'      => ['required', 'string'],
+            'days'      => ['required'],
+            'exercises' => ['required'],
         ]);
 
-        $exercise->update([
+        $days = implode('; ', $request->days);
+
+        $workout->update([
             'name' => $request->name,
-            'day'  => $request->day,
+            'day'  => $days,
         ]);
+
+        // Relation
+        $workout->exercises()->detach();
+        foreach ($request->exercises as $exercise) {
+            $workout->exercises()->attach($exercise);
+        }
 
         return redirect()->route('workouts.index');
     }

@@ -36,17 +36,17 @@
                         </div>
                     </div>
 
-                    {{-- @foreach($exercises as $exercise)
-                        <p>{{ $exercise->name }}</p>
-                    @endforeach --}}
-
                     <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-                        <label for="sets" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                            Séries
+                        <label for="days" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            Dias
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input type="text" name="sets" id="sets" class="@error('sets') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
-                            @error('sets')
+                            <input type="checkbox" name='days[]' value='monday' class="inline-block mx-2 text-green-600 rounded-md">Segunda-Feira
+                            <input type="checkbox" name='days[]' value='tuesday' class="inline-block mx-2 text-green-600 rounded-md">Terça-Feira
+                            <input type="checkbox" name='days[]' value='wednesday'class="inline-block mx-2 text-green-600 rounded-md">Quarta-Feira
+                            <input type="checkbox" name='days[]' value='thursday'class="inline-block mx-2 text-green-600 rounded-md">Quinta-Feira
+                            <input type="checkbox" name='days[]' value='friday'class="inline-block mx-2 text-green-600 rounded-md">Sexta-Feira
+                            @error('days')
                                 <div>
                                     <small class="text-sm text-red-500">{{ $message }}</small>
                                 </div>
@@ -55,38 +55,29 @@
                     </div>
 
                     <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-                        <label for="reps" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                            Repetições
+                        <label for="muscle_group" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            Exercícios
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input type="text" name="reps" id="reps" class="@error('reps') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
-                            @error('reps')
+                            <select multiple="multiple" id="exercises" name="exercises[]" class="@error('exercises') border-red-500 @enderror block w-full max-w-lg border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm">
+                                @foreach($exercises as $exercise)
+                                    <option value="{{ $exercise->id }}">
+                                        {{ $exercise->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('exercises')
                                 <div>
                                     <small class="text-sm text-red-500">{{ $message }}</small>
                                 </div>
                             @enderror
                         </div>
                     </div>
-
-                    <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-                        <label for="equipment" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                            Equipament
-                        </label>
-                        <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input type="text" name="equipment" id="equipment" class="@error('equipment') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
-                            @error('equipment')
-                                <div>
-                                    <small class="text-sm text-red-500">{{ $message }}</small>
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-
                 </div>
 
                 <div class="pt-5">
                     <div class="flex justify-end">
-                        <a href="/exercises" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                        <a href="{{ route('workouts.index') }}" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                             Cancelar
                         </a>
                         <button type="submit" class="inline-flex justify-center px-4 py-2 ml-3 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">

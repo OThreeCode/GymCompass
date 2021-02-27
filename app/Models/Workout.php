@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $id
  * @property string $name
+ *
+ * @property-read $exercises
+ * @property-read $users
  */
 class Workout extends Model
 {
@@ -24,6 +27,6 @@ class Workout extends Model
 
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(User::class);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Workout;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -11,6 +12,11 @@ class UserController extends Controller
     public function index()
     {
         return view('users.index', ['users' => User::all()]);
+    }
+
+    public function create()
+    {
+        return view('users.create', ['workouts' => Workout::all()]);
     }
 
     public function store(Request $request)

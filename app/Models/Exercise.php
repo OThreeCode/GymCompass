@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $sets
  * @property int $reps
  * @property string $equipment
+ *
+ * @property-read $workouts
  */
 class Exercise extends Model
 {

@@ -26,7 +26,7 @@
                                     Nome
                                  </th>
                                  <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                                    Dia
+                                    Dias
                                  </th>
                                  <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                                     Número de Exercícios

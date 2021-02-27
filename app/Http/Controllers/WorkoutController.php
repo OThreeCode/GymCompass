@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Exercise;
 use App\Models\Workout;
+use Exercises;
 use Illuminate\Http\Request;
+use Illuminate\Queue\Worker;
 
 class WorkoutController extends Controller
 {
@@ -15,29 +17,35 @@ class WorkoutController extends Controller
 
     public function create()
     {
-        $exercises = Exercise::all();
-        return view('workouts.create', ['exercises' => $exercises]);
-        // return view('workouts.create');
+        return view('workouts.create', ['exercises' => Exercise::all()]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string'],
-            'day'  => ['required'],
+            'name'      => ['required', 'string'],
+            'days'      => ['required'],
+            'exercises' => ['required'],
         ]);
 
-        Exercise::create([
+        $days = implode('; ', $request->days);
+
+        $workout = Workout::create([
             'name' => $request->name,
-            'day'  => $request->day,
+            'day'  => $days,
         ]);
+
+        // Relation
+        foreach ($request->exercises as $exercise) {
+            $workout->exercises()->attach($exercise);
+        }
 
         return redirect()->route('workouts.index');
     }
 
     public function show(Workout $workout)
     {
-        return view('workouts.edit', ['workouts' => $workout]);
+        return view('workouts.edit', ['workout' => $workout, 'exercises' => Exercise::all()]);
     }
 
     public function update(Request $request, Exercise $exercise)

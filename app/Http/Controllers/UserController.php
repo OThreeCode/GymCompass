@@ -32,12 +32,19 @@ class UserController extends Controller
             ])],
         ]);
 
-        User::create([
+        $user = User::create([
             'name'     => $request->name,
             'email'    => $request->email,
             'role'     => $request->role,
             'password' => bcrypt($request->password),
         ]);
+
+        // Relation
+        if ($request->workouts) {
+            foreach ($request->workouts as $workout) {
+                $user->workouts()->attach($workout);
+            }
+        }
 
         return redirect()->route('users.index');
     }

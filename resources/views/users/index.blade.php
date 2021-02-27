@@ -69,7 +69,7 @@
                                        {{ $user->role }}
                                     </td>
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                       {{ $user->workouts->isEmpty() ? 'Nenhum' : $user->workouts }}
+                                       {{ $user->workouts->isEmpty() ? 'Nenhum' : count($user->workouts) }}
                                     </td>
                                     <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                                        <a href="{{ route('users.show', ['user' => $user->id]) }}"

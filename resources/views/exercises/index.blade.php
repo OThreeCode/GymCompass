@@ -8,7 +8,7 @@
       <div class="flex justify-between px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
          <h1 class="text-2xl font-semibold text-gray-900">Exercícios</h1>
          <div class="mb-2">
-            <a href="exercises/create" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+            <a href="{{ route('exercises.create') }}" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                Cadastrar Exercícios
             </a>
          </div>

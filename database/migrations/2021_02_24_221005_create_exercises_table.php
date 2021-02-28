@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Exercises extends Migration
+class CreateExercisesTable extends Migration
 {
     public function up()
     {
@@ -14,7 +14,7 @@ class Exercises extends Migration
             $table->string('muscle_group');
             $table->integer('sets');
             $table->integer('reps');
-            $table->integet('rest');
+            $table->integer('rest');
             $table->string('equipment');
         });
     }

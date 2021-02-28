@@ -24,6 +24,7 @@ class ExerciseController extends Controller
             'muscle_group' => ['required'],
             'sets'         => ['required', 'integer'],
             'reps'         => ['required', 'integer'],
+            'rest'         => ['required', 'integer'],
             'equipment'    => ['required', 'string'],
         ]);
 
@@ -32,6 +33,7 @@ class ExerciseController extends Controller
             'muscle_group' => $request->muscle_group,
             'sets'         => $request->sets,
             'reps'         => $request->reps,
+            'rest'         => $request->rest,
             'equipment'    => $request->equipment,
         ]);
 
@@ -50,6 +52,7 @@ class ExerciseController extends Controller
             'muscle_group' => ['required'],
             'sets'         => ['required', 'integer'],
             'reps'         => ['required', 'integer'],
+            'rest'         => ['required', 'integer'],
             'equipment'    => ['required', 'string'],
         ]);
 
@@ -58,6 +61,7 @@ class ExerciseController extends Controller
             'muscle_group' => $request->muscle_group,
             'sets'         => $request->sets,
             'reps'         => $request->reps,
+            'rest'         => $request->rest,
             'equipment'    => $request->equipment,
         ]);
 

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $muscle_group
  * @property int $sets
  * @property int $reps
+ * @property int $rest
  * @property string $equipment
  *
  * @property-read $workouts

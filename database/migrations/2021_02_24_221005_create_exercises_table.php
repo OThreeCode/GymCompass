@@ -14,6 +14,7 @@ class Exercises extends Migration
             $table->string('muscle_group');
             $table->integer('sets');
             $table->integer('reps');
+            $table->integet('rest');
             $table->string('equipment');
         });
     }

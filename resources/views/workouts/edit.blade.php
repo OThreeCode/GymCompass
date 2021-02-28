@@ -9,7 +9,7 @@
            <h1 class="text-2xl font-semibold text-gray-900">Editar {{ $workout->name }}</h1>
         </div>
         <div class="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
-            <form method="post" action="{{ route('workouts.update', ['workout' => $workout->id]) }}" class="space-y-8 divide-y divide-gray-200">
+            <form id="workoutForm" method="post" action="{{ route('workouts.update', ['workout' => $workout->id]) }}" onsubmit="sendExercises()" class="space-y-8 divide-y divide-gray-200">
                 @method('PATCH')
                 @csrf
                 <div class="pt-8">
@@ -56,23 +56,33 @@
                     </div>
 
                     <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-                        <label for="muscle_group" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                        <label class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                             Exercícios
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <select multiple="multiple" id="exercises" name="exercises[]" class="@error('exercises') border-red-500 @enderror block w-full max-w-lg border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm">
+                            <div class="grid grid-cols-3 gap-4 auto-cols-max">
                                 @foreach($exercises as $exercise)
-                                    <option value="{{ $exercise->id }}">
-                                        {{ $exercise->name }}
-                                    </option>
+                                    <div>
+                                        <div class="inline w-1/5 p-2 bg-white shadow rounded-l-md h-9">
+                                            {{ $exercise->name . ' (' . $exercise->sets . 'x' . $exercise->reps . ')' }}
+                                        </div>
+                                        <button type="button" onclick="addExercises({{ $exercise }})" class="w-8 text-white bg-green-600 rounded-r-md h-9">+</button>
+                                    </div>
                                 @endforeach
-                            </select>
+                            </div>
                             @error('exercises')
                                 <div>
                                     <small class="text-sm text-red-500">{{ $message }}</small>
                                 </div>
                             @enderror
                         </div>
+                    </div>
+
+                    <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                        <label for="days" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            Exercícios selecionados
+                        </label>
+                        <div id="selectedExercises" class="mt-1 sm:mt-0 sm:col-span-2"></div>
                     </div>
                 </div>
             
@@ -90,4 +100,47 @@
         </div>
     </div>
 </main>
+
+<script type="text/javascript">
+    var selectedExercises = [];
+    console.log(selectedExercises);
+
+    function addExercises(exercise){
+        if(selectedExercises.some(e => e.id === exercise.id)){
+        } else {
+            selectedExercises.push(exercise);
+        }
+        this.renderSelectedExercises();
+    }
+
+    function removeExercise(exerciseId) {
+        selectedExercises = selectedExercises.filter(e => e.id !== exerciseId);
+        this.renderSelectedExercises();
+    }
+
+    function renderSelectedExercises() {
+        var selectedDiv = document.getElementById('selectedExercises').innerHTML = "";
+        selectedExercises.forEach(exercise => {
+            var selected = document.createElement('div');
+            selected.innerHTML = `
+                <div class="inline w-1/5 p-2 bg-white shadow rounded-l-md h-9">
+                    ${exercise.name} (${exercise.sets}x${exercise.reps})
+                </div>
+                <button type="button" onclick="removeExercise(${exercise.id})" class="w-8 text-white bg-red-600 rounded-r-md h-9">-</button>
+            `;
+            document.getElementById('selectedExercises').appendChild(selected);
+        });
+    }
+
+    function sendExercises() {
+        selectedExercises.forEach(exercise => {
+            var input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("name", "exercises[]");
+            input.setAttribute("value", exercise.id);
+
+            document.getElementById('workoutForm').appendChild(input);
+        })
+    }
+</script>
 @endsection

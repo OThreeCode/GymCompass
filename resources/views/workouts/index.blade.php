@@ -1,15 +1,15 @@
 @extends('layouts.authenticated')
 
-@section('title', 'Usuários')
+@section('title', 'Treinos')
 
 @section('content')
 <main class="relative z-0 flex-1 overflow-y-auto focus:outline-none" tabindex="0">
    <div class="py-6">
       <div class="flex justify-between px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-         <h1 class="text-2xl font-semibold text-gray-900">Usuários</h1>
+         <h1 class="text-2xl font-semibold text-gray-900">Treinos</h1>
          <div class="mb-2">
-            <a href="{{ route('users.create') }}" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-               Cadastrar Usuários
+            <a href="{{ route('workouts.create') }}" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+               Cadastrar Treinos
             </a>
          </div>
       </div>
@@ -26,13 +26,10 @@
                                     Nome
                                  </th>
                                  <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                                    Status
+                                    Dias
                                  </th>
                                  <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                                    Função
-                                 </th>
-                                 <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                                    Treinos
+                                    Número de Exercícios
                                  </th>
                                  <th scope="col" class="relative px-6 py-3">
                                     <span class="sr-only">Editar</span>
@@ -43,7 +40,7 @@
                               </tr>
                            </thead>
                            <tbody class="bg-white divide-y divide-gray-200">
-                              @foreach($users as $user)
+                              @foreach($workouts as $workout)
                                  <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                        <div class="flex items-center">
@@ -52,33 +49,25 @@
                                           </div>
                                           <div class="ml-4">
                                              <div class="text-sm font-medium text-gray-900">
-                                                {{ $user->name }}
-                                             </div>
-                                             <div class="text-sm text-gray-500">
-                                                {{ $user->email }}
+                                                {{ $workout->name }}
                                              </div>
                                           </div>
                                        </div>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                       <span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
-                                          Ativo
-                                       </span>
+                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                       {{ $workout->day }}
                                     </td>
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                       {{ $user->role }}
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                       {{ $user->workouts->isEmpty() ? 'Nenhum' : count($user->workouts) }}
-                                    </td>
+                                        {{ count($workout->exercises) }}
+                                     </td>
                                     <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                       <a href="{{ route('users.show', ['user' => $user->id]) }}"
+                                       <a href="{{ route('workouts.show', ['workout' => $workout->id]) }}"
                                           class="text-green-600 hover:text-green-900">
                                           Editar
                                        </a>
                                     </td>
                                     <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                       <a href="{{ route('users.delete', ['user' => $user->id]) }}"
+                                       <a href="{{ route('workouts.delete', ['workout' => $workout->id]) }}"
                                           class="text-green-600 hover:text-green-900">
                                           Deletar
                                        </a>

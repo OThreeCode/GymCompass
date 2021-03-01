@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Workout;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -11,6 +12,11 @@ class UserController extends Controller
     public function index()
     {
         return view('users.index', ['users' => User::all()]);
+    }
+
+    public function create()
+    {
+        return view('users.create', ['workouts' => Workout::all()]);
     }
 
     public function store(Request $request)
@@ -26,14 +32,21 @@ class UserController extends Controller
             ])],
         ]);
 
-        User::create([
+        $user = User::create([
             'name'     => $request->name,
             'email'    => $request->email,
             'role'     => $request->role,
             'password' => bcrypt($request->password),
         ]);
 
-        return view('users.index', ['users' => User::all()]);
+        // Relation
+        if ($request->workouts) {
+            foreach ($request->workouts as $workout) {
+                $user->workouts()->attach($workout);
+            }
+        }
+
+        return redirect()->route('users.index');
     }
 
     public function show(User $user)

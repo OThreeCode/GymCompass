@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Hash;
  * @property string $remember_token
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ *
+ * @property-read $workouts
  */
 class User extends Authenticatable
 {
@@ -28,11 +30,16 @@ class User extends Authenticatable
     const ROLE_PERSONAL = 'Personal';
     const ROLE_CLIENT   = 'Client';
 
-    protected $guarded = [];  
+    protected $guarded = [];
 
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function workouts()
+    {
+        return $this->belongsToMany(Workout::class);
+    }
 
     public function isAdmin()
     {
@@ -45,5 +52,4 @@ class User extends Authenticatable
 
         return $this;
     }
-
 }

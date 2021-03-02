@@ -1,12 +1,12 @@
 @extends('layouts.authenticated')
 
-@section('title', 'Cadastrar Exercício')
+@section('title', 'Editar Exercício')
 
 @section('content')
 <main class="relative z-0 flex-1 overflow-y-auto focus:outline-none" tabindex="0">
     <div class="py-6">
         <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <h1 class="text-2xl font-semibold text-gray-900">Cadastrar {{ $exercise->name }}</h1>
+            <h1 class="text-2xl font-semibold text-gray-900">Editar {{ $exercise->name }}</h1>
         </div>
         <div class="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
             <form method="post" action="{{ route('exercises.update', ['exercise' => $exercise->id]) }}" class="space-y-8 divide-y divide-gray-200">
@@ -104,7 +104,7 @@
 
                     <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                         <label for="rest" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                            Repetições
+                            Descanso
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
                             <input type="text" name="rest" id="rest" value="{{ $exercise->rest }}" class="@error('rest') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">

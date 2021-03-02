@@ -79,7 +79,7 @@
                             Séries
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input type="text" name="sets" id="sets" value="{{ $exercise->sets }}" class="@error('sets') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                            <input type="number" name="sets" id="sets" value="{{ $exercise->sets }}" class="@error('sets') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
                             @error('sets')
                                 <div>
                                     <small class="text-sm text-red-500">{{ $message }}</small>
@@ -93,7 +93,7 @@
                             Repetições
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input type="text" name="reps" id="reps" value="{{ $exercise->reps }}" class="@error('reps') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                            <input type="number" name="reps" id="reps" value="{{ $exercise->reps }}" class="@error('reps') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
                             @error('reps')
                                 <div>
                                     <small class="text-sm text-red-500">{{ $message }}</small>

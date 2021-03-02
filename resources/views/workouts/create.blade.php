@@ -101,8 +101,7 @@
 </main>
 
 <script type="text/javascript">
-    var selectedExercises = [];
-    console.log(selectedExercises);
+    let selectedExercises = [];
 
     function addExercises(exercise){
         if(selectedExercises.some(e => e.id === exercise.id)){
@@ -118,9 +117,9 @@
     }
 
     function renderSelectedExercises() {
-        var selectedDiv = document.getElementById('selectedExercises').innerHTML = "";
+        let selectedDiv = document.getElementById('selectedExercises').innerHTML = "";
         selectedExercises.forEach(exercise => {
-            var selected = document.createElement('div');
+            let selected = document.createElement('div');
             selected.innerHTML = `
                 <div class="inline w-1/5 p-2 bg-white shadow rounded-l-md h-9">
                     ${exercise.name} (${exercise.sets}x${exercise.reps})
@@ -133,7 +132,7 @@
 
     function sendExercises() {
         selectedExercises.forEach(exercise => {
-            var input = document.createElement("input");
+            let input = document.createElement("input");
             input.setAttribute("type", "hidden");
             input.setAttribute("name", "exercises[]");
             input.setAttribute("value", exercise.id);

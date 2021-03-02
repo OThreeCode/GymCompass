@@ -27,7 +27,7 @@
                             Nome
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input type="text" name="name" id="name" class="@error('name') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                            <input type="text" name="name" id="name" value="{{ old('name') }}" class="@error('name') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
                             @error('name')
                                 <div>
                                     <small class="text-sm text-red-500">{{ $message }}</small>
@@ -43,25 +43,25 @@
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
                             <select id="muscle_group" name="muscle_group" class="@error('muscle_group') border-red-500 @enderror max-w-lg block focus:ring-green-500 focus:border-green-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
                                 <option value="">Selecione uma opção...</option>
-                                <option value="dorsal">
+                                <option value="dorsal" @if(old('muscle_group') == 'dorsal') selected @endif>
                                     Dorsal
                                 </option>
-                                <option value="peitoral">
+                                <option value="peitoral" @if(old('muscle_group') == 'peitoral') selected @endif>
                                     Peitoral
                                 </option>
-                                <option value="quadriceps">
+                                <option value="quadriceps" @if(old('muscle_group') == 'quadriceps') selected @endif>
                                     Quadríceps
                                 </option>
-                                <option value="deltóides">
+                                <option value="deltóides" @if(old('muscle_group') == 'deitóides') selected @endif>
                                     Deltóides
                                 </option>
-                                <option value="isquiotibiais">
+                                <option value="isquiotibiais" @if(old('muscle_group') == 'isquiotibiais') selected @endif>
                                     Isquiotibiais
                                 </option>
-                                <option value="biceps">
+                                <option value="biceps" @if(old('muscle_group') == 'biceps') selected @endif>
                                     Bíceps
                                 </option>
-                                <option value="triceps">
+                                <option value="triceps" @if(old('muscle_group') == 'triceps') selected @endif>
                                     Tríceps
                                 </option>
                             </select>
@@ -78,7 +78,7 @@
                             Séries
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input type="number" name="sets" id="sets" class="@error('sets') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                            <input type="number" name="sets" id="sets" value="{{ old('sets') }}" class="@error('sets') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
                             @error('sets')
                                 <div>
                                     <small class="text-sm text-red-500">{{ $message }}</small>
@@ -92,7 +92,7 @@
                             Repetições
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input type="number" name="reps" id="reps" class="@error('reps') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                            <input type="number" name="reps" id="reps" value="{{ old('reps') }}" class="@error('reps') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
                             @error('reps')
                                 <div>
                                     <small class="text-sm text-red-500">{{ $message }}</small>
@@ -106,7 +106,7 @@
                             Descanso (em segundos)
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input type="number" name="rest" id="rest" class="@error('rest') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                            <input type="number" name="rest" id="rest" value="{{ old('rest') }}" class="@error('rest') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
                             @error('rest')
                                 <div>
                                     <small class="text-sm text-red-500">{{ $message }}</small>
@@ -120,7 +120,7 @@
                             Equipamento
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input type="text" name="equipment" id="equipment" class="@error('equipment') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                            <input type="text" name="equipment" id="equipment" value="{{ old('equipment') }}" class="@error('equipment') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
                             @error('equipment')
                                 <div>
                                     <small class="text-sm text-red-500">{{ $message }}</small>

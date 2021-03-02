@@ -27,7 +27,7 @@
                             Nome
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input type="text" name="name" id="name" class="@error('name') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                            <input type="text" name="name" id="name" value="{{ old('name') }}" class="@error('name') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
                             @error('name')
                                 <div>
                                     <small class="text-sm text-red-500">{{ $message }}</small>
@@ -41,7 +41,7 @@
                             Email
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input id="email" name="email" type="email" class="@error('email') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                            <input id="email" name="email" type="email" value="{{ old('email') }}" class="@error('email') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
                             @error('email')
                                 <div>
                                     <small class="text-sm text-red-500">{{ $message }}</small>
@@ -57,13 +57,13 @@
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
                             <select id="role" name="role" class="@error('role') border-red-500 @enderror max-w-lg block focus:ring-green-500 focus:border-green-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
                                 <option value="">Selecione uma opção...</option>
-                                <option value="Admin">
+                                <option value="Admin" @if(old('role') == 'Admin') selected @endif>
                                     Administrador(a)
                                 </option>
-                                <option value="Personal">
+                                <option value="Personal" @if(old('role') == 'Personal') selected @endif>
                                     Personal Trainer
                                 </option>
-                                <option value="Client">
+                                <option value="Client" @if(old('role') == 'Client') selected @endif>
                                     Aluno(a)
                                 </option>
                             </select>
@@ -81,11 +81,15 @@
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
                             <select multiple="multiple" id="workouts" name="workouts[]" class="@error('workouts') border-red-500 @enderror block w-full max-w-lg border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm">
-                                @foreach($workouts as $workout)
+                                @forelse($workouts as $workout)
                                     <option value="{{ $workout->id }}">
                                         {{ $workout->name }}
                                     </option>
-                                @endforeach
+                                @empty
+                                    <option>
+                                        Treinos ainda não disponíveis.
+                                    </option>    
+                                @endforelse
                             </select>
                             @error('workouts')
                                 <div>
@@ -100,7 +104,7 @@
                             Senha
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input type="password" name="password" id="password" class="@error('password') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                            <input type="password" value="{{ old('password') }}" name="password" id="password" class="@error('password') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
                             @error('password')
                                 <div>
                                     <small class="text-sm text-red-500">{{ $message }}</small>
@@ -114,7 +118,7 @@
                             Confirmação de senha
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input type="password" name="password_confirmation" id="password_confirmation" class="@error('password_confirmation') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                            <input type="password" name="password_confirmation" value="{{ old('password_confirmation') }}" id="password_confirmation" class="@error('password_confirmation') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
                             @error('password_confirmation')
                                 <div>
                                     <small class="text-sm text-red-500">{{ $message }}</small>

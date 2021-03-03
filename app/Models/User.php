@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 
 /**
  * @property int $id
+ * @property int $personal_id
  * @property string $name
  * @property string $email
  * @property string $role
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\Hash;
  * @property Carbon $updated_at
  *
  * @property-read $workouts
+ * @property-read $personal_name
  */
 class User extends Authenticatable
 {
@@ -44,6 +46,11 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->role === self::ROLE_ADMIN;
+    }
+
+    public function isPersonal()
+    {
+        return $this->role === self::ROLE_PERSONAL;
     }
 
     public function changePassword($new)

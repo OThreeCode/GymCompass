@@ -34,6 +34,9 @@
                                  <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                                     Treinos
                                  </th>
+                                 <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                                    Personal
+                                 </th>
                                  <th scope="col" class="relative px-6 py-3">
                                     <span class="sr-only">Editar</span>
                                  </th>
@@ -67,6 +70,9 @@
                                     </td>
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
                                        {{ $user->workouts->isEmpty() ? 'Nenhum' : count($user->workouts) }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                       {{ $user->personal_name ?? '--' }}
                                     </td>
                                     <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                                        <a href="{{ route('users.show', ['user' => $user->id]) }}"

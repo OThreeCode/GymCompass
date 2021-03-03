@@ -9,7 +9,7 @@
            <h1 class="text-2xl font-semibold text-gray-900">Editar {{ $user->name }}</h1>
         </div>
         <div class="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
-            <form method="post" action="{{ route('users.update', ['user' => $user->id]) }}" class="space-y-8 divide-y divide-gray-200">
+            <form id="workoutForm" method="post" action="{{ route('users.update', ['user' => $user->id]) }}" onsubmit="sendWorkouts()" class="space-y-8 divide-y divide-gray-200">
                 @method('PATCH')
                 @csrf
                 <div class="pt-8">
@@ -75,6 +75,63 @@
                             @enderror
                         </div>
                     </div>
+
+                    @if($user->role === "Client")
+                        <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                            <label for="personal" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                                Personal Trainer
+                            </label>
+                            <div class="mt-1 sm:mt-0 sm:col-span-2">
+                                <select id="personal" name="personal" class="@error('personal') border-red-500 @enderror max-w-lg block focus:ring-green-500 focus:border-green-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                                    <option value="">Selecione um personal</option>
+                                    @foreach($personals as $personal)
+                                        <option value="{{ $personal->id }}" @if($user->personal_id === $personal->id) selected @endif>{{ $personal->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('personal')
+                                    <div>
+                                        <small class="text-sm text-red-500">{{ $message }}</small>
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                    @endif
+
+                    @if(Auth::user()->isPersonal())
+                        <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                            <label class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                                Selecione os treinos
+                            </label>
+                            <div class="mt-1 sm:mt-0 sm:col-span-2">
+                                <div class="grid grid-cols-3 gap-4 auto-cols-max">
+                                    @forelse($workouts as $workout)
+                                        <div>
+                                            <div class="inline w-1/5 p-2 bg-white shadow rounded-l-md h-9">
+                                                {{ $workout->name }}
+                                            </div>
+                                            <button type="button" onclick="addWorkout({{ $workout }})" class="w-8 text-white bg-green-600 rounded-r-md h-9">+</button>
+                                        </div>
+                                    @empty    
+                                        <p class="text-sm text-red-500">É necessário ter cadastrado exercícios antes.</p>
+                                    @endforelse
+                                </div>
+                                @error('workouts')
+                                    <div>
+                                        <small class="text-sm text-red-500">{{ $message }}</small>
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        @if(count($workouts) > 0)
+                            <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                                <label for="days" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                                    Treinos selecionados
+                                </label>
+                                <div id="selectedWorkouts" class="mt-1 sm:mt-0 sm:col-span-2"></div>
+                            </div>
+                        @endif
+                    @endif
                 </div>
             
                 <div class="pt-5">
@@ -91,4 +148,46 @@
         </div>
     </div>
 </main>
+
+<script type="text/javascript">
+    let selectedWorkouts = [];
+
+    function addWorkout(workout){
+        if(selectedWorkouts.some(e => e.id === workout.id)){
+        } else {
+            selectedWorkouts.push(workout);
+        }
+        this.renderSelectedWorkouts();
+    }
+
+    function removeWorkout(workoutId) {
+        selectedWorkouts = selectedWorkouts.filter(e => e.id !== workoutId);
+        this.renderSelectedWorkouts();
+    }
+
+    function renderSelectedWorkouts() {
+        let selectedDiv = document.getElementById('selectedWorkouts').innerHTML = "";
+        selectedWorkouts.forEach(workout => {
+            let selected = document.createElement('div');
+            selected.innerHTML = `
+                <div class="inline w-1/5 p-2 bg-white shadow rounded-l-md h-9">
+                    ${workout.name}
+                </div>
+                <button type="button" onclick="removeWorkout(${workout.id})" class="w-8 text-white bg-red-600 rounded-r-md h-9">-</button>
+            `;
+            document.getElementById('selectedWorkouts').appendChild(selected);
+        });
+    }
+
+    function sendWorkouts() {
+        selectedWorkouts.forEach(workout => {
+            let input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("name", "workouts[]");
+            input.setAttribute("value", workout.id);
+
+            document.getElementById('workoutForm').appendChild(input);
+        })
+    }
+</script>
 @endsection

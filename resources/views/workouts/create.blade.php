@@ -90,7 +90,7 @@
                                         <div class="inline w-1/5 p-2 bg-white shadow rounded-l-md h-9">
                                             {{ $exercise->name . ' (' . $exercise->sets . 'x' . $exercise->reps . ')' }}
                                         </div>
-                                        <button type="button" onclick="addExercises({{ $exercise }})" class="w-8 text-white bg-green-600 rounded-r-md h-9">+</button>
+                                        <button type="button" onclick="addExercise({{ $exercise }})" class="w-8 text-white bg-green-600 rounded-r-md h-9">+</button>
                                     </div>
                                 @empty    
                                     <p class="text-sm text-red-500">É necessário ter cadastrado exercícios antes.</p>
@@ -119,7 +119,7 @@
                         <a href="{{ route('workouts.index') }}" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                             Cancelar
                         </a>
-                        <button type="submit" class="inline-flex disabled:opacity-50 disabled:cursor-not-allowed justify-center px-4 py-2 ml-3 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" @if(count($exercises) === 0) disabled @endif>
+                        <button type="submit" class="inline-flex justify-center px-4 py-2 ml-3 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md shadow-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" @if(count($exercises) === 0) disabled @endif>
                             Cadastrar
                         </button>
                     </div>
@@ -132,7 +132,7 @@
 <script type="text/javascript">
     let selectedExercises = [];
 
-    function addExercises(exercise){
+    function addExercise(exercise){
         if(selectedExercises.some(e => e.id === exercise.id)){
         } else {
             selectedExercises.push(exercise);

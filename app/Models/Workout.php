@@ -29,4 +29,23 @@ class Workout extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function formatDays()
+    {
+        $translatedDays = [
+            "monday"    => "segunda-feira",
+            "tuesday"   => "terça-feira",
+            "wednesday" => "quarta-feira",
+            "thursday"  => "quinta-feira",
+            "friday"    => "sexta-feira",
+        ];
+
+        $days = collect(explode(';', $this->day));
+
+        $days = $days->reduce(function ($carry, $day) use ($translatedDays) {
+            return $carry . $translatedDays[trim($day)] . ", ";
+        });
+
+        return rtrim($days, ", ");
+    }
 }

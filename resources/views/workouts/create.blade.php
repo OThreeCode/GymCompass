@@ -27,7 +27,7 @@
                             Nome
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input type="text" name="name" id="name" class="@error('name') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                            <input type="text" name="name" id="name" value="{{ old('name') }}" class="@error('name') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
                             @error('name')
                                 <div>
                                     <small class="text-sm text-red-500">{{ $message }}</small>
@@ -41,11 +41,36 @@
                             Dias
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input type="checkbox" name='days[]' class="inline-block mx-2 text-green-600 rounded-md" value='monday'>Segunda-Feira
-                            <input type="checkbox" name='days[]' class="inline-block mx-2 text-green-600 rounded-md" value='tuesday'>Terça-Feira
-                            <input type="checkbox" name='days[]' class="inline-block mx-2 text-green-600 rounded-md" value='wednesday'>Quarta-Feira
-                            <input type="checkbox" name='days[]' class="inline-block mx-2 text-green-600 rounded-md" value='thursday'>Quinta-Feira
-                            <input type="checkbox" name='days[]' class="inline-block mx-2 text-green-600 rounded-md" value='friday'>Sexta-Feira
+                            <div>
+                                <input type="checkbox" name='days[]'
+                                @if(old('days') && in_array('monday', old('days'))) checked @endif
+                                class="inline-block mx-2 text-green-600 rounded-md" value='monday' />
+                                Segunda-Feira
+                            </div>
+                            <div>
+                                <input type="checkbox" name='days[]'
+                                @if(old('days') && in_array('tuesday', old('days'))) checked @endif
+                                class="inline-block mx-2 text-green-600 rounded-md" value='tuesday' />
+                                Terça-Feira
+                            </div>
+                            <div>
+                                <input type="checkbox" name='days[]'
+                                @if(old('days') && in_array('wednesday', old('days'))) checked @endif
+                                class="inline-block mx-2 text-green-600 rounded-md" value='wednesday' />
+                                Quarta-Feira
+                            </div>
+                            <div>
+                                <input type="checkbox" name='days[]'
+                                @if(old('days') && in_array('thursday', old('days'))) checked @endif
+                                class="inline-block mx-2 text-green-600 rounded-md" value='thursday' />
+                                Quinta-Feira
+                            </div>
+                            <div>
+                                <input type="checkbox" name='days[]'
+                                @if(old('days') && in_array('friday', old('days'))) checked @endif
+                                class="inline-block mx-2 text-green-600 rounded-md" value='friday' />
+                                Sexta-Feira
+                            </div>
                             @error('days')
                                 <div>
                                     <small class="text-sm text-red-500">{{ $message }}</small>
@@ -60,14 +85,16 @@
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
                             <div class="grid grid-cols-3 gap-4 auto-cols-max">
-                                @foreach($exercises as $exercise)
+                                @forelse($exercises as $exercise)
                                     <div>
                                         <div class="inline w-1/5 p-2 bg-white shadow rounded-l-md h-9">
                                             {{ $exercise->name . ' (' . $exercise->sets . 'x' . $exercise->reps . ')' }}
                                         </div>
                                         <button type="button" onclick="addExercises({{ $exercise }})" class="w-8 text-white bg-green-600 rounded-r-md h-9">+</button>
                                     </div>
-                                @endforeach
+                                @empty    
+                                    <p class="text-sm text-red-500">É necessário ter cadastrado exercícios antes.</p>
+                                @endforelse
                             </div>
                             @error('exercises')
                                 <div>
@@ -76,13 +103,15 @@
                             @enderror
                         </div>
                     </div>
-
-                    <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-                        <label for="days" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                            Exercícios selecionados
-                        </label>
-                        <div id="selectedExercises" class="mt-1 sm:mt-0 sm:col-span-2"></div>
-                    </div>
+                    
+                    @if(count($exercises) > 0)
+                        <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                            <label for="days" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                                Exercícios selecionados
+                            </label>
+                            <div id="selectedExercises" class="mt-1 sm:mt-0 sm:col-span-2"></div>
+                        </div>
+                    @endif
                 </div>
 
                 <div class="pt-5">
@@ -90,7 +119,7 @@
                         <a href="{{ route('workouts.index') }}" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                             Cancelar
                         </a>
-                        <button type="submit" class="inline-flex justify-center px-4 py-2 ml-3 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                        <button type="submit" class="inline-flex disabled:opacity-50 disabled:cursor-not-allowed justify-center px-4 py-2 ml-3 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" @if(count($exercises) === 0) disabled @endif>
                             Cadastrar
                         </button>
                     </div>
@@ -101,8 +130,7 @@
 </main>
 
 <script type="text/javascript">
-    var selectedExercises = [];
-    console.log(selectedExercises);
+    let selectedExercises = [];
 
     function addExercises(exercise){
         if(selectedExercises.some(e => e.id === exercise.id)){
@@ -118,9 +146,9 @@
     }
 
     function renderSelectedExercises() {
-        var selectedDiv = document.getElementById('selectedExercises').innerHTML = "";
+        let selectedDiv = document.getElementById('selectedExercises').innerHTML = "";
         selectedExercises.forEach(exercise => {
-            var selected = document.createElement('div');
+            let selected = document.createElement('div');
             selected.innerHTML = `
                 <div class="inline w-1/5 p-2 bg-white shadow rounded-l-md h-9">
                     ${exercise.name} (${exercise.sets}x${exercise.reps})
@@ -133,7 +161,7 @@
 
     function sendExercises() {
         selectedExercises.forEach(exercise => {
-            var input = document.createElement("input");
+            let input = document.createElement("input");
             input.setAttribute("type", "hidden");
             input.setAttribute("name", "exercises[]");
             input.setAttribute("value", exercise.id);

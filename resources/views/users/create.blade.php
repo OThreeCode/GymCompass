@@ -76,30 +76,6 @@
                     </div>
 
                     <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-                        <label for="workouts" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                            Treinos
-                        </label>
-                        <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <select multiple="multiple" id="workouts" name="workouts[]" class="@error('workouts') border-red-500 @enderror block w-full max-w-lg border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm">
-                                @forelse($workouts as $workout)
-                                    <option value="{{ $workout->id }}">
-                                        {{ $workout->name }}
-                                    </option>
-                                @empty
-                                    <option>
-                                        Treinos ainda não disponíveis.
-                                    </option>    
-                                @endforelse
-                            </select>
-                            @error('workouts')
-                                <div>
-                                    <small class="text-sm text-red-500">{{ $message }}</small>
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                         <label for="password" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                             Senha
                         </label>

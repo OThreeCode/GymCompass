@@ -139,6 +139,7 @@
                </div>
             </div>
             <div class="flex flex-col w-0 flex-1 overflow-hidden">
+               {{-- <x-success-alert message="eat shit and die" /> --}}
                @yield('content')
             </div>
         </div> 

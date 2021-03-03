@@ -34,6 +34,16 @@ class UserController extends Controller
         return view('users.create', ['workouts' => Workout::all()]);
     }
 
+    public function show(User $user)
+    {
+        return view('users.edit', [
+            'user'              => $user,
+            'personals'         => User::query()->where('role', 'Personal')->get(),
+            'workouts'          => Workout::all(),
+            'selected_workouts' => $user->workouts()->get(),
+        ]);
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -55,17 +65,6 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('users.index');
-    }
-
-    public function show(User $user)
-    {
-        // dd($user->workouts()->get());
-        return view('users.edit', [
-            'user' => $user,
-            'personals' => User::query()->where('role', 'Personal')->get(),
-            'workouts' => Workout::all(),
-            'selected_workouts' => $user->workouts()->get(),
-        ]);
     }
 
     public function update(Request $request, User $user)

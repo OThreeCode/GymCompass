@@ -18,6 +18,15 @@ class WorkoutController extends Controller
         return view('workouts.create', ['exercises' => Exercise::all()]);
     }
 
+    public function show(Workout $workout)
+    {
+        return view('workouts.edit', [
+            'workout'            => $workout,
+            'exercises'          => Exercise::all(),
+            'selected_exercises' => $workout->exercises()->get(),
+        ]);
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -39,11 +48,6 @@ class WorkoutController extends Controller
         }
 
         return redirect()->route('workouts.index');
-    }
-
-    public function show(Workout $workout)
-    {
-        return view('workouts.edit', ['workout' => $workout, 'exercises' => Exercise::all()]);
     }
 
     public function update(Request $request, Workout $workout)

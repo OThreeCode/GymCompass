@@ -106,16 +106,14 @@
                         </div>
                     </div>
 
-                    @if(count($workouts) > 0)
-                        <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-                            <label class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                Treinos selecionados
-                            </label>
-                            <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                <div id="selectedWorkouts" class="grid grid-cols-3 gap-4 auto-cols-max"></div>
-                            </div>
+                    <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                        <label class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            Treinos selecionados
+                        </label>
+                        <div class="mt-1 sm:mt-0 sm:col-span-2">
+                            <div id="selectedWorkouts" class="grid grid-cols-3 gap-4 auto-cols-max"></div>
                         </div>
-                    @endif
+                    </div>
                 </div>
             
                 <div class="pt-5">
@@ -134,8 +132,8 @@
 </main>
 
 <script type="text/javascript">
+    let workouts         = @json($workouts);
     let selectedWorkouts = @json($selected_workouts) ?? [];
-    let workouts = @json($workouts);
 
     window.onload = function () {
         this.render();
@@ -153,7 +151,7 @@
                 let workoutDiv = document.createElement('div');
                 workoutDiv.innerHTML = `
                     <div class="inline w-1/5 p-2 bg-white shadow rounded-l-md h-9">
-                    ${workout.name}
+                        ${workout.name}
                     </div>
                     <button type="button" onclick="addWorkout(${workout.id})" class="w-8 text-white bg-green-600 rounded-r-md h-9">+</button>
                 `;

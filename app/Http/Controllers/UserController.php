@@ -47,29 +47,24 @@ class UserController extends Controller
             ])],
         ]);
 
-        $user = User::create([
+        User::create([
             'name'     => $request->name,
             'email'    => $request->email,
             'role'     => $request->role,
             'password' => bcrypt($request->password),
         ]);
 
-        // Relation
-        if ($request->workouts) {
-            foreach ($request->workouts as $workout) {
-                $user->workouts()->attach($workout);
-            }
-        }
-
         return redirect()->route('users.index');
     }
 
     public function show(User $user)
     {
+        // dd($user->workouts()->get());
         return view('users.edit', [
             'user' => $user,
             'personals' => User::query()->where('role', 'Personal')->get(),
             'workouts' => Workout::all(),
+            'selected_workouts' => $user->workouts()->get(),
         ]);
     }
 

@@ -97,40 +97,24 @@
                         </div>
                     @endif
 
-                    @if(Auth::user()->isPersonal())
+                    <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                        <label class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            Selecione os treinos
+                        </label>
+                        <div class="mt-1 sm:mt-0 sm:col-span-2">
+                            <div id="workouts" class="grid grid-cols-3 gap-4 auto-cols-max"></div>
+                        </div>
+                    </div>
+
+                    @if(count($workouts) > 0)
                         <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                             <label class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                Selecione os treinos
+                                Treinos selecionados
                             </label>
                             <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                <div class="grid grid-cols-3 gap-4 auto-cols-max">
-                                    @forelse($workouts as $workout)
-                                        <div>
-                                            <div class="inline w-1/5 p-2 bg-white shadow rounded-l-md h-9">
-                                                {{ $workout->name }}
-                                            </div>
-                                            <button type="button" onclick="addWorkout({{ $workout }})" class="w-8 text-white bg-green-600 rounded-r-md h-9">+</button>
-                                        </div>
-                                    @empty    
-                                        <p class="text-sm text-red-500">É necessário ter cadastrado exercícios antes.</p>
-                                    @endforelse
-                                </div>
-                                @error('workouts')
-                                    <div>
-                                        <small class="text-sm text-red-500">{{ $message }}</small>
-                                    </div>
-                                @enderror
+                                <div id="selectedWorkouts" class="grid grid-cols-3 gap-4 auto-cols-max"></div>
                             </div>
                         </div>
-
-                        @if(count($workouts) > 0)
-                            <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-                                <label for="days" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                    Treinos selecionados
-                                </label>
-                                <div id="selectedWorkouts" class="mt-1 sm:mt-0 sm:col-span-2"></div>
-                            </div>
-                        @endif
                     @endif
                 </div>
             
@@ -150,33 +134,59 @@
 </main>
 
 <script type="text/javascript">
-    let selectedWorkouts = [];
+    let selectedWorkouts = @json($selected_workouts) ?? [];
+    let workouts = @json($workouts);
 
-    function addWorkout(workout){
-        if(selectedWorkouts.some(e => e.id === workout.id)){
-        } else {
-            selectedWorkouts.push(workout);
-        }
+    window.onload = function () {
+        this.render();
+    };
+
+    function render() {
         this.renderSelectedWorkouts();
+        this.renderWorkouts();
     }
 
-    function removeWorkout(workoutId) {
-        selectedWorkouts = selectedWorkouts.filter(e => e.id !== workoutId);
-        this.renderSelectedWorkouts();
+    function renderWorkouts() {
+        document.getElementById('workouts').innerHTML = "";
+        workouts.forEach(workout => {
+            if(!selectedWorkouts.some(w => w.id === workout.id)) {
+                let workoutDiv = document.createElement('div');
+                workoutDiv.innerHTML = `
+                    <div class="inline w-1/5 p-2 bg-white shadow rounded-l-md h-9">
+                    ${workout.name}
+                    </div>
+                    <button type="button" onclick="addWorkout(${workout.id})" class="w-8 text-white bg-green-600 rounded-r-md h-9">+</button>
+                `;
+                document.getElementById('workouts').appendChild(workoutDiv);
+            }
+        });
     }
 
     function renderSelectedWorkouts() {
-        let selectedDiv = document.getElementById('selectedWorkouts').innerHTML = "";
+        document.getElementById('selectedWorkouts').innerHTML = "";
         selectedWorkouts.forEach(workout => {
-            let selected = document.createElement('div');
-            selected.innerHTML = `
+            let selectedDiv = document.createElement('div');
+            selectedDiv.innerHTML = `
                 <div class="inline w-1/5 p-2 bg-white shadow rounded-l-md h-9">
                     ${workout.name}
                 </div>
                 <button type="button" onclick="removeWorkout(${workout.id})" class="w-8 text-white bg-red-600 rounded-r-md h-9">-</button>
             `;
-            document.getElementById('selectedWorkouts').appendChild(selected);
+            document.getElementById('selectedWorkouts').appendChild(selectedDiv);
         });
+    }
+    
+    function addWorkout(workoutId) {
+        if(!selectedWorkouts.some(w => w.id === workoutId)) {
+            workout = workouts.find(work => work.id === workoutId);
+            selectedWorkouts.push(workout);
+        }
+        this.render();
+    }
+
+    function removeWorkout(workoutId) {
+        selectedWorkouts = selectedWorkouts.filter(e => e.id !== workoutId);
+        this.render();
     }
 
     function sendWorkouts() {

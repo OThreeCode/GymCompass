@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Exercise;
 use App\Models\Workout;
-use Exercises;
 use Illuminate\Http\Request;
-use Illuminate\Queue\Worker;
 
 class WorkoutController extends Controller
 {
@@ -72,10 +70,10 @@ class WorkoutController extends Controller
         return redirect()->route('workouts.index');
     }
 
-    public function delete(Exercise $exercise)
+    public function delete(Workout $workout)
     {
-        $exercise->delete();
+        $workout->delete();
 
-        return redirect()->back()->with('message', 'Exercício deletado com sucesso.');
+        return redirect()->back()->with('message', 'Treino deletado com sucesso.');
     }
 }

@@ -24,5 +24,5 @@ Route::middleware(['auth'])->group(function () {
 
     // Workouts
     Route::resource('workouts', WorkoutController::class);
-    Route::get('workouts/delete/{workout}', [WorkoutController::class, 'delete'])->name('workouts.delete'); // this is weird, fix it later
+    Route::get('/workouts/delete/{workout}', [WorkoutController::class, 'delete'])->name('workouts.delete'); // this is weird, fix it later
 });

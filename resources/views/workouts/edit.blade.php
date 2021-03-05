@@ -42,11 +42,36 @@
                             Dias
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input type="checkbox" name='days[]' value='monday' class="inline-block mx-2 text-green-600 rounded-md">Segunda-Feira
-                            <input type="checkbox" name='days[]' value='tuesday' class="inline-block mx-2 text-green-600 rounded-md">Terça-Feira
-                            <input type="checkbox" name='days[]' value='wednesday'class="inline-block mx-2 text-green-600 rounded-md">Quarta-Feira
-                            <input type="checkbox" name='days[]' value='thursday'class="inline-block mx-2 text-green-600 rounded-md">Quinta-Feira
-                            <input type="checkbox" name='days[]' value='friday'class="inline-block mx-2 text-green-600 rounded-md">Sexta-Feira
+                            <div>
+                                <input type="checkbox" name='days[]'
+                                @if(in_array('monday', explode('; ', $workout->day))) checked @endif
+                                class="inline-block mx-2 text-green-600 rounded-md" value='monday' />
+                                Segunda-Feira
+                            </div>
+                            <div>
+                                <input type="checkbox" name='days[]'
+                                @if(in_array('tuesday', explode('; ', $workout->day))) checked @endif
+                                class="inline-block mx-2 text-green-600 rounded-md" value='tuesday' />
+                                Terça-Feira
+                            </div>
+                            <div>
+                                <input type="checkbox" name='days[]'
+                                @if(in_array('wednesday', explode('; ', $workout->day))) checked @endif
+                                class="inline-block mx-2 text-green-600 rounded-md" value='wednesday' />
+                                Quarta-Feira
+                            </div>
+                            <div>
+                                <input type="checkbox" name='days[]'
+                                @if(in_array('thursday', explode('; ', $workout->day))) checked @endif
+                                class="inline-block mx-2 text-green-600 rounded-md" value='thursday' />
+                                Quinta-Feira
+                            </div>
+                            <div>
+                                <input type="checkbox" name='days[]'
+                                @if(in_array('friday', explode('; ', $workout->day))) checked @endif
+                                class="inline-block mx-2 text-green-600 rounded-md" value='friday' />
+                                Sexta-Feira
+                            </div>
                             @error('days')
                                 <div>
                                     <small class="text-sm text-red-500">{{ $message }}</small>

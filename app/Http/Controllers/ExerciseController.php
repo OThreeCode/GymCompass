@@ -37,7 +37,7 @@ class ExerciseController extends Controller
             'equipment'    => $request->equipment,
         ]);
 
-        return redirect()->route('exercises.index');
+        return redirect()->route('exercises.index')->with('success', 'Exercício cadastrado com sucesso.');
     }
 
     public function show(Exercise $exercise)
@@ -65,7 +65,7 @@ class ExerciseController extends Controller
             'equipment'    => $request->equipment,
         ]);
 
-        return redirect()->route('exercises.index');
+        return redirect()->route('exercises.index')->with('success', 'Exercício cadastrado com sucesso.');
     }
 
     public function delete(Exercise $exercise)

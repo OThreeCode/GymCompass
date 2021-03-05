@@ -139,7 +139,9 @@
                </div>
             </div>
             <div class="flex flex-col flex-1 w-0 overflow-hidden">
-               {{-- <x-success-alert message="eat shit and die" /> --}}
+               @if (session()->has('success'))
+                  <x-success-alert message='Operação realizada com sucesso.' />
+               @endif
                @yield('content')
             </div>
         </div> 

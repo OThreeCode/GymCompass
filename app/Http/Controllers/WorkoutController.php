@@ -47,7 +47,7 @@ class WorkoutController extends Controller
             $workout->exercises()->attach($exercise);
         }
 
-        return redirect()->route('workouts.index');
+        return redirect()->route('workouts.index')->with('success', 'Treino cadastrado com sucesso.');
     }
 
     public function update(Request $request, Workout $workout)
@@ -71,7 +71,7 @@ class WorkoutController extends Controller
             $workout->exercises()->attach($exercise);
         }
 
-        return redirect()->route('workouts.index');
+        return redirect()->route('workouts.index')->with('success', 'Treino atualizado com sucesso.');
     }
 
     public function delete(Workout $workout)

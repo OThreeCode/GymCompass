@@ -64,7 +64,7 @@ class UserController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success', 'Usuário cadastrado com sucesso.');
     }
 
     public function update(Request $request, User $user)
@@ -94,7 +94,7 @@ class UserController extends Controller
             }
         }
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success', 'Usuário atualizado com sucesso.');
     }
 
     public function delete(User $user)

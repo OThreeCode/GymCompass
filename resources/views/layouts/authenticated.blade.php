@@ -140,7 +140,9 @@
             </div>
             <div class="flex flex-col flex-1 w-0 overflow-hidden">
                @if (session()->has('success'))
-                  <x-success-alert message='Operação realizada com sucesso.' />
+                  <x-success-alert>
+                     {{ session()->get('success') }}
+                  </x-success-alert>
                @endif
                @yield('content')
             </div>

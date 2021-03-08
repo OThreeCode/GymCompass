@@ -150,3 +150,13 @@
       @endif
    </body>
 </html>
+
+<script type="text/javascript">
+   function hideDeleteModal(id) {
+      document.getElementById('delete-modal-body-' + id).style.display = "none";
+   }
+
+   function showDeleteModal(id) {
+      document.getElementById('delete-modal-body-' + id).style.display = "block";
+   }
+</script>

@@ -81,10 +81,7 @@
                                           </a>
                                        </td>
                                        <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                          <a href="{{ route('exercises.delete', ['exercise' => $exercise->id]) }}"
-                                             class="text-green-600 hover:text-green-900">
-                                             Deletar
-                                          </a>
+                                          <x-delete-modal route='exercises.destroy' model='exercise' id='{{ $exercise->id }}' />
                                        </td>
                                     </tr>
                                  @endforeach

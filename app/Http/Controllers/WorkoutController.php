@@ -74,7 +74,7 @@ class WorkoutController extends Controller
         return redirect()->route('workouts.index')->with('success', 'Treino atualizado com sucesso.');
     }
 
-    public function delete(Workout $workout)
+    public function destroy(Workout $workout)
     {
         $workout->delete();
 

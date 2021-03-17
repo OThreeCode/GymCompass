@@ -68,7 +68,7 @@ class ExerciseController extends Controller
         return redirect()->route('exercises.index')->with('success', 'Exercício cadastrado com sucesso.');
     }
 
-    public function delete(Exercise $exercise)
+    public function destroy(Exercise $exercise)
     {
         $exercise->delete();
 

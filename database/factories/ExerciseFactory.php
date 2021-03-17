@@ -12,7 +12,12 @@ class ExerciseFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name'         => $this->faker->name,
+            'muscle_group' => $this->faker->randomElement($array = array('Dorsal', 'Peitoral', 'Quadríceps', 'Deltóides', 'Isquiotibiais', 'Bíceps', 'Tríceps')),
+            'sets'         => $this->faker->randomDigit(),
+            'reps'         => $this->faker->randomDigit(),
+            'rest'         => $this->faker->numberBetween($min = 10, $max = 60),
+            'equipment'    => $this->faker->name,
         ];
     }
 }

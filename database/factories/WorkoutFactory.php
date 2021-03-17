@@ -12,7 +12,8 @@ class WorkoutFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name,
+            'day'  => $this->faker->randomElement($array = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday')),
         ];
     }
 }

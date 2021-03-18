@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Attendance;
 use App\Models\Exercise;
 use App\Models\User;
 use App\Models\Workout;
@@ -44,5 +45,8 @@ class DatabaseSeeder extends Seeder
                 $i++;
             }
         }
+
+        // Attendace
+        Attendance::factory()->count(500)->create();
     }
 }

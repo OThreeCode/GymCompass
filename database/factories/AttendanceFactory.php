@@ -17,6 +17,7 @@ class AttendanceFactory extends Factory
 
         return [
             'user_id' => $this->faker->numberBetween($min = 1, $max = 28),
+            'workout_id' => $this->faker->numberBetween($min = 1, $max = 8),
             'time_in' => $inDate->format('Y-m-d H:i:s'),
             'time_out' => $outDate->addHours($this->faker->numberBetween(1, 3))->format('Y-m-d H:i:s')
         ];

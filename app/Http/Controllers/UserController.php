@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
 use App\Models\User;
 use App\Models\Workout;
 use Illuminate\Http\Request;
@@ -32,6 +33,14 @@ class UserController extends Controller
     public function create()
     {
         return view('users.create', ['workouts' => Workout::all()]);
+    }
+
+    public function info(User $user)
+    {
+        return view('users.show', [
+            'user' => $user,
+            'attendance' => Attendance::query()->where('user_id', $user->id)
+        ]);
     }
 
     public function show(User $user)

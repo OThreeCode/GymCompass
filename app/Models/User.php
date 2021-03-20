@@ -22,7 +22,8 @@ use Illuminate\Support\Facades\Hash;
  * @property Carbon $updated_at
  *
  * @property-read $workouts
- * @property-read $personal_name
+ * @property-read $personal
+ * @property-read $clients
  */
 class User extends Authenticatable
 {
@@ -38,9 +39,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function personal()
+    {
+        return $this->belongsTo(User::class, 'personal_id');
+    }
+
     public function workouts()
     {
         return $this->belongsToMany(Workout::class);
+    }
+
+    public function clients()
+    {
+        return $this->hasMany(User::class, 'personal_id');
     }
 
     public function isAdmin()

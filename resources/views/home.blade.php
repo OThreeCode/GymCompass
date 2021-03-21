@@ -2,6 +2,10 @@
 
 @section('title', 'Home')
 
+@section('scripts')
+<script src="https://code.jscharting.com/latest/jscharting.js"></script>
+@endsection
+
 @section('content')
 <div>
 	<div class="pt-1 pl-1 md:hidden sm:pl-3 sm:pt-3">
@@ -91,7 +95,76 @@
 							</div>
 						</div>
 					@else
-						Charts do client aqui
+					<div class="p-20 flex justify-center">
+						<div class="flex max-w-md flex-col gap-5">
+							<div class="rounded-lg bg-white overflow-hidden shadow-lg">
+								<div class="px-6 py-5">
+									<div class="font-bold text-center text-gray-800 text-xl mb-2">Frequência no mês de Março</div>
+									<p class="text-gray-700 text-center font-medium text-9xl text-gray-800">
+										75<span class="inline-block text-5xl align-baseline">%</span>
+									</p>
+								</div>
+								<div class="px-6 pt-1 pb-4">
+									<p class="inline-block text-sm font-normal text-gray-400">* Contando apenas os dias de treino</p>
+								</div>
+							</div>
+							<div class="max-w-sm h-auto rounded-lg bg-white overflow-hidden shadow-lg">
+								<div class="flex flex-col px-6 py-5 justify-items-center justify-center">
+									<div class="font-bold text-center text-gray-800 text-xl mb-2">Frequência nos últimos meses</div>
+									<table class="overflow-auto mt-5 w-full text-2xl bg-gray-800 rounded-md">
+										<tbody class="text-white">
+											<tr class="flex justify-between p-3 border-b border-gray-200">
+												<td>Outubro</td>
+												<td><span class="text-green-300">87%</span></td>
+											</tr>
+											<tr class="flex justify-between bg-gray-700 p-3 border-b border-gray-200">
+												<td>Novembro</td>
+												<td><span class="text-yellow-300">60%</span></td>
+											</tr>
+											<tr class="flex justify-between p-3 border-b border-gray-200">
+												<td>Dezembro</td>
+												<td><span class="text-yellow-300">57%</span></td>
+											</tr>
+											<tr class="flex justify-between bg-gray-700 p-3 border-b border-gray-200">
+												<td>Janeiro</td>
+												<td><span class="text-green-300">96%</span></td>
+											</tr>
+											<tr class="flex justify-between p-3 border-b border-gray-200">
+												<td>Fevereiro</td>
+												<td><span class="text-red-300">30%</span></td>
+											</tr>
+											
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+
+						<div class="flex-1 ml-8 max-w-sm h-96 max-h-screen rounded-lg bg-white overflow-hidden shadow-lg">
+							<div class="px-6 py-5">
+								<div class="font-bold text-center text-gray-800 text-xl mb-2">Grupos musculares mais treinados</div>
+								<div class="px-3 mt-4">
+									<span class="inline-block bg-gray-200 rounded-full px-4 py-2 text-md font-semibold text-gray-700 mr-2 mb-2">quadríceps</span>
+									<span class="inline-block bg-gray-200 rounded-full px-4 py-2 text-md font-semibold text-gray-700 mr-2 mb-2">bíceps</span>
+									<span class="inline-block bg-gray-200 rounded-full px-4 py-2 text-md font-semibold text-gray-700 mr-2 mb-2">dorsal</span>
+									<span class="inline-block bg-gray-200 rounded-full px-4 py-2 text-md font-semibold text-gray-700 mr-2 mb-2">tríceps</span>
+									<span class="inline-block bg-gray-200 rounded-full px-4 py-2 text-md font-semibold text-gray-700 mr-2 mb-2">panturrilha</span>
+								</div>
+							</div>
+							<div class="px-6 pb-5">
+								<div class="font-bold text-center text-gray-800 text-xl mb-2">Exercícios mais executados</div>
+								<div class="px-3 mt-4">
+									<span class="inline-block bg-gray-700 rounded-full px-4 py-2 text-md font-semibold text-gray-200 mr-2 mb-2">legpress</span>
+									<span class="inline-block bg-gray-700 rounded-full px-4 py-2 text-md font-semibold text-gray-200 mr-2 mb-2">extensora</span>
+									<span class="inline-block bg-gray-700 rounded-full px-4 py-2 text-md font-semibold text-gray-200 mr-2 mb-2">flexora</span>
+									<span class="inline-block bg-gray-700 rounded-full px-4 py-2 text-md font-semibold text-gray-200 mr-2 mb-2">cross-over</span>
+									<span class="inline-block bg-gray-700 rounded-full px-4 py-2 text-md font-semibold text-gray-200 mr-2 mb-2">supino inclinado</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
 					@endif
 				</div>
 			</div>

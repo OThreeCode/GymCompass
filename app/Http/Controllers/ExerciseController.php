@@ -3,13 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Exercise;
+use App\Repositories\ExerciseRepository;
+use App\Services\ExerciseService;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class ExerciseController extends Controller
 {
+    private ExerciseService $service;
+    private ExerciseRepository $repository;
+
+    public function __construct()
+    {
+        $this->service = new ExerciseService();
+        $this->repository = new ExerciseRepository();
+    }
+
     public function index()
     {
-        return view('exercises.index', ['exercises' => Exercise::all()]);
+        try {
+            $exercises = $this->repository->getAll();
+            return view('exercises.index', ['exercises' => $exercises]);            
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Falha ao recuperar exercícios.');
+        }        
     }
 
     public function create()
@@ -19,25 +36,16 @@ class ExerciseController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name'         => ['required', 'string'],
-            'muscle_group' => ['required'],
-            'sets'         => ['required', 'integer'],
-            'reps'         => ['required', 'integer'],
-            'rest'         => ['required', 'integer'],
-            'equipment'    => ['required', 'string'],
-        ]);
-
-        Exercise::create([
-            'name'         => $request->name,
-            'muscle_group' => $request->muscle_group,
-            'sets'         => $request->sets,
-            'reps'         => $request->reps,
-            'rest'         => $request->rest,
-            'equipment'    => $request->equipment,
-        ]);
-
-        return redirect()->route('exercises.index')->with('success', 'Exercício cadastrado com sucesso.');
+        try {
+            $this->service->save($request->all());
+            return redirect()
+                ->route('exercises.index')
+                ->with('success', 'Exercício cadastrado com sucesso.');
+        } catch (ValidationException $e) {
+            return redirect()->back()->withErrors($e->validator->getMessageBag());
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Falha na criação do exercício.');
+        }
     }
 
     public function show(Exercise $exercise)
@@ -47,31 +55,29 @@ class ExerciseController extends Controller
 
     public function update(Request $request, Exercise $exercise)
     {
-        $request->validate([
-            'name'         => ['required', 'string'],
-            'muscle_group' => ['required'],
-            'sets'         => ['required', 'integer'],
-            'reps'         => ['required', 'integer'],
-            'rest'         => ['required', 'integer'],
-            'equipment'    => ['required', 'string'],
-        ]);
-
-        $exercise->update([
-            'name'         => $request->name,
-            'muscle_group' => $request->muscle_group,
-            'sets'         => $request->sets,
-            'reps'         => $request->reps,
-            'rest'         => $request->rest,
-            'equipment'    => $request->equipment,
-        ]);
-
-        return redirect()->route('exercises.index')->with('success', 'Exercício cadastrado com sucesso.');
+        try {
+            $this->service->update($exercise, $request->all());
+            return redirect()
+                ->route('exercises.index')
+                ->with('success', 'Exercício cadastrado com sucesso.');
+        } catch (ValidationException $e) {
+            return redirect()->back()->withErrors($e->validator->getMessageBag());
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Falha ao atualizar este exercício.');
+        }
     }
 
     public function destroy(Exercise $exercise)
     {
-        $exercise->delete();
-
-        return redirect()->back()->with('message', 'Exercício deletado com sucesso.');
+        try {
+            $this->service->delete($exercise);
+            return redirect()
+                ->back()
+                ->with('message', 'Exercício deletado com sucesso.');
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->with('error', 'Não foi possível deletar este exercício.');
+        }
     }
 }

@@ -2,24 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Services\DashboardService;
 
 class DashboardController extends Controller
 {
+    private DashboardService $service;
+
+    public function __construct()
+    {
+        $this->service = new DashboardService();
+    }
+
     public function home()
     {
-        if (Auth::user()->isAdmin()) {
-            $users = User::all();
-        } elseif (Auth::user()->isPersonal()) {
-            $users = User::where('personal_id', Auth::user()->id)->get();
-        } else {
-            $users = null;
+        try {
+            $users = $this->service->getUsers();
+            return view('home', [
+                'users' => $users,
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Falha ao recuperar usuários.');
         }
-        
-        return view('home', [
-            'users' => $users,
-        ]);
     }
 }

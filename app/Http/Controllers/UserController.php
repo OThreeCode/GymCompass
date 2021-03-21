@@ -2,114 +2,116 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Attendance;
 use App\Models\User;
-use App\Models\Workout;
+use App\Repositories\AttendanceRepository;
+use App\Repositories\UserRepository;
+use App\Repositories\WorkoutRepository;
+use App\Services\UserService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
+    private UserService $service;
+    private UserRepository $repository;
+    private WorkoutRepository $workoutRepository;
+    private AttendanceRepository $attendanceRepository;
+
+    public function __construct()
+    {
+        $this->service = new UserService();
+        $this->repository = new UserRepository();
+        $this->workoutRepository = new WorkoutRepository();
+        $this->attendanceRepository = new AttendanceRepository();
+    }
+
     public function index()
     {
-        if (Auth::user()->isPersonal()) {
-            $users = User::query()->where('personal_id', '=', Auth::user()->id)->get();
-        } else {
-            $users = User::all();
+        try {
+            $users = $this->service->getAll();
+            return view('users.index', ['users' => $users]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Falha ao recuperar usuários.');
         }
-
-        foreach ($users as $user) {
-            if (!$user->personal_id) {
-                continue;
-            }
-            $personal = User::find($user->personal_id);
-            $user->personal_name = $personal->name;
-        }
-
-        return view('users.index', ['users' => $users]);
     }
 
     public function create()
     {
-        return view('users.create', ['workouts' => Workout::all()]);
+        try {
+            $workouts = $this->workoutRepository->getAll();
+            return view('users.create', ['workouts' => $workouts]);            
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Falha ao recuperar treinos.');
+        }
     }
 
     public function info(User $user)
     {
-        return view('users.show', [
-            'user' => $user,
-            'attendance' => Attendance::query()->where('user_id', $user->id)
-        ]);
+        try {
+            return view('users.show', [
+                'user' => $user,
+                'attendance' => $this->attendanceRepository->getByUserId($user->id),
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Falha ao recuperar dados.');
+        }
     }
 
     public function show(User $user)
     {
-        return view('users.edit', [
-            'user'              => $user,
-            'personals'         => User::query()->where('role', 'Personal')->get(),
-            'workouts'          => Workout::all(),
-            'selected_workouts' => $user->workouts()->get(),
-        ]);
+        try {
+            $workouts = $this->workoutRepository->getAll();
+            $personals = $this->repository->getUserPersonals();
+            return view('users.edit', [
+                'user'              => $user,
+                'personals'         => $personals,
+                'workouts'          => $workouts,
+                'selected_workouts' => $user->workouts()->get(),
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Falha ao recuperar dados.');
+        }
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name'     => ['required', 'string'],
-            'email'    => ['required', 'string', 'email', 'unique:users'],
-            'password' => ['required', 'min:8', 'confirmed'],
-            'role'     => ['required', Rule::in([
-                User::ROLE_ADMIN,
-                User::ROLE_CLIENT,
-                User::ROLE_PERSONAL,
-            ])],
-        ]);
-
-        User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'role'     => $request->role,
-            'password' => bcrypt($request->password),
-        ]);
-
-        return redirect()->route('users.index')->with('success', 'Usuário cadastrado com sucesso.');
+        try {
+            $this->service->save($request->all());
+            return redirect()
+                ->route('users.index')
+                ->with('success', 'Usuário cadastrado com sucesso.');
+        } catch (ValidationException $e) {
+            return redirect()->back()->withErrors($e->validator->getMessageBag());
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Falha na criação do usuário.');
+        }
     }
 
     public function update(Request $request, User $user)
     {
-        $request->validate([
-            'name'  => ['required', 'string'],
-            'email' => ['required', 'string', 'email'],
-            'role'  => ['required', Rule::in([
-                User::ROLE_ADMIN,
-                User::ROLE_CLIENT,
-                User::ROLE_PERSONAL,
-            ])],
-        ]);
-
-        $user->update([
-            'name'        => $request->name,
-            'email'       => $request->email,
-            'role'        => $request->role,
-            'personal_id' => $request->personal ?? null,
-        ]);
-
-        // Relation
-        $user->workouts()->detach();
-        if ($request->workouts) {
-            foreach ($request->workouts as $workout) {
-                $user->workouts()->attach($workout);
-            }
+        try {
+            $this->service->update($user, $request->all());
+            return redirect()
+                ->route('users.index')
+                ->with('success', 'Usuário atualizado com sucesso.');
+        } catch (ValidationException $e) {
+            return redirect()->back()->withErrors($e->validator->getMessageBag());
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Falha ao atualizar usuário.');
         }
-
-        return redirect()->route('users.index')->with('success', 'Usuário atualizado com sucesso.');
     }
 
     public function destroy(User $user)
     {
-        $user->delete();
-
-        return redirect()->back()->with('message', 'Usuário deletado com sucesso.');
+        try {
+            $this->service->delete($user);
+            return redirect()
+                ->back()
+                ->with('message', 'Usuário deletado com sucesso.');
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->with('error', 'Não foi possível deletar este usuário.');
+        }
     }
 }

@@ -17,6 +17,7 @@ class DashboardController extends Controller
         } else {
             $users = null;
         }
+        
         return view('home', [
             'users' => $users,
         ]);

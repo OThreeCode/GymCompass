@@ -23,7 +23,7 @@
 			</div>
 			<div class="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
 				<div class="py-4">
-					@if(!is_null($users))
+					@if(count($users) > 1)
 						<div class="flex flex-col">
 							<div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
 							<div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
@@ -95,71 +95,55 @@
 							</div>
 						</div>
 					@else
-					<div class="p-20 flex justify-center">
-						<div class="flex max-w-md flex-col gap-5">
-							<div class="rounded-lg bg-white overflow-hidden shadow-lg">
+					<div class="flex justify-center p-20">
+						<div class="flex flex-col max-w-md gap-5">
+							<div class="overflow-hidden bg-white rounded-lg shadow-lg">
 								<div class="px-6 py-5">
-									<div class="font-bold text-center text-gray-800 text-xl mb-2">Frequência no mês de Março</div>
-									<p class="text-gray-700 text-center font-medium text-9xl text-gray-800">
-										75<span class="inline-block text-5xl align-baseline">%</span>
+									<div class="mb-2 text-xl font-bold text-center text-gray-800">Frequência no mês de Março</div>
+									<p class="font-medium text-center text-gray-700 text-gray-800 text-9xl">
+										{{ $statistics[0]['percentage'] }}<span class="inline-block text-5xl align-baseline">%</span>
 									</p>
 								</div>
 								<div class="px-6 pt-1 pb-4">
 									<p class="inline-block text-sm font-normal text-gray-400">* Contando apenas os dias de treino</p>
 								</div>
 							</div>
-							<div class="max-w-sm h-auto rounded-lg bg-white overflow-hidden shadow-lg">
-								<div class="flex flex-col px-6 py-5 justify-items-center justify-center">
-									<div class="font-bold text-center text-gray-800 text-xl mb-2">Frequência nos últimos meses</div>
-									<table class="overflow-auto mt-5 w-full text-2xl bg-gray-800 rounded-md">
+							<div class="h-auto max-w-sm overflow-hidden bg-white rounded-lg shadow-lg">
+								<div class="flex flex-col justify-center px-6 py-5 justify-items-center">
+									<div class="mb-2 text-xl font-bold text-center text-gray-800">Frequência nos últimos meses</div>
+									<table class="w-full mt-5 overflow-auto text-2xl bg-gray-800 rounded-md">
 										<tbody class="text-white">
-											<tr class="flex justify-between p-3 border-b border-gray-200">
-												<td>Outubro</td>
-												<td><span class="text-green-300">87%</span></td>
-											</tr>
-											<tr class="flex justify-between bg-gray-700 p-3 border-b border-gray-200">
-												<td>Novembro</td>
-												<td><span class="text-yellow-300">60%</span></td>
-											</tr>
-											<tr class="flex justify-between p-3 border-b border-gray-200">
-												<td>Dezembro</td>
-												<td><span class="text-yellow-300">57%</span></td>
-											</tr>
-											<tr class="flex justify-between bg-gray-700 p-3 border-b border-gray-200">
-												<td>Janeiro</td>
-												<td><span class="text-green-300">96%</span></td>
-											</tr>
-											<tr class="flex justify-between p-3 border-b border-gray-200">
-												<td>Fevereiro</td>
-												<td><span class="text-red-300">30%</span></td>
-											</tr>
-											
-
+											@for ($i = 1; $i <= 5; $i++)
+												<tr class="flex justify-between p-3 border-b border-gray-200">
+													<td>{{ $statistics[$i]['name'] }}</td>
+													<td><span class="text-green-300">{{ $statistics[$i]['percentage'] }}</span></td>
+												</tr>
+											@endfor
 										</tbody>
 									</table>
 								</div>
 							</div>
 						</div>
 
-						<div class="flex-1 ml-8 max-w-sm h-96 max-h-screen rounded-lg bg-white overflow-hidden shadow-lg">
+						<div class="flex-1 max-w-sm max-h-screen ml-8 overflow-hidden bg-white rounded-lg shadow-lg h-96">
 							<div class="px-6 py-5">
-								<div class="font-bold text-center text-gray-800 text-xl mb-2">Grupos musculares mais treinados</div>
+								<div class="mb-2 text-xl font-bold text-center text-gray-800">Grupos musculares mais treinados</div>
 								<div class="px-3 mt-4">
-									<span class="inline-block bg-gray-200 rounded-full px-4 py-2 text-md font-semibold text-gray-700 mr-2 mb-2">quadríceps</span>
-									<span class="inline-block bg-gray-200 rounded-full px-4 py-2 text-md font-semibold text-gray-700 mr-2 mb-2">bíceps</span>
-									<span class="inline-block bg-gray-200 rounded-full px-4 py-2 text-md font-semibold text-gray-700 mr-2 mb-2">dorsal</span>
-									<span class="inline-block bg-gray-200 rounded-full px-4 py-2 text-md font-semibold text-gray-700 mr-2 mb-2">tríceps</span>
-									<span class="inline-block bg-gray-200 rounded-full px-4 py-2 text-md font-semibold text-gray-700 mr-2 mb-2">panturrilha</span>
+									<span class="inline-block px-4 py-2 mb-2 mr-2 font-semibold text-gray-700 bg-gray-200 rounded-full text-md">quadríceps</span>
+									<span class="inline-block px-4 py-2 mb-2 mr-2 font-semibold text-gray-700 bg-gray-200 rounded-full text-md">bíceps</span>
+									<span class="inline-block px-4 py-2 mb-2 mr-2 font-semibold text-gray-700 bg-gray-200 rounded-full text-md">dorsal</span>
+									<span class="inline-block px-4 py-2 mb-2 mr-2 font-semibold text-gray-700 bg-gray-200 rounded-full text-md">tríceps</span>
+									<span class="inline-block px-4 py-2 mb-2 mr-2 font-semibold text-gray-700 bg-gray-200 rounded-full text-md">panturrilha</span>
 								</div>
 							</div>
 							<div class="px-6 pb-5">
-								<div class="font-bold text-center text-gray-800 text-xl mb-2">Exercícios mais executados</div>
+								<div class="mb-2 text-xl font-bold text-center text-gray-800">Exercícios mais executados</div>
 								<div class="px-3 mt-4">
-									<span class="inline-block bg-gray-700 rounded-full px-4 py-2 text-md font-semibold text-gray-200 mr-2 mb-2">legpress</span>
-									<span class="inline-block bg-gray-700 rounded-full px-4 py-2 text-md font-semibold text-gray-200 mr-2 mb-2">extensora</span>
-									<span class="inline-block bg-gray-700 rounded-full px-4 py-2 text-md font-semibold text-gray-200 mr-2 mb-2">flexora</span>
-									<span class="inline-block bg-gray-700 rounded-full px-4 py-2 text-md font-semibold text-gray-200 mr-2 mb-2">cross-over</span>
-									<span class="inline-block bg-gray-700 rounded-full px-4 py-2 text-md font-semibold text-gray-200 mr-2 mb-2">supino inclinado</span>
+									<span class="inline-block px-4 py-2 mb-2 mr-2 font-semibold text-gray-200 bg-gray-700 rounded-full text-md">legpress</span>
+									<span class="inline-block px-4 py-2 mb-2 mr-2 font-semibold text-gray-200 bg-gray-700 rounded-full text-md">extensora</span>
+									<span class="inline-block px-4 py-2 mb-2 mr-2 font-semibold text-gray-200 bg-gray-700 rounded-full text-md">flexora</span>
+									<span class="inline-block px-4 py-2 mb-2 mr-2 font-semibold text-gray-200 bg-gray-700 rounded-full text-md">cross-over</span>
+									<span class="inline-block px-4 py-2 mb-2 mr-2 font-semibold text-gray-200 bg-gray-700 rounded-full text-md">supino inclinado</span>
 								</div>
 							</div>
 						</div>

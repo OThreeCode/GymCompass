@@ -2,7 +2,9 @@
 
 namespace App\Repositories;
 
+use App\Models\Attendance;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 
 class UserRepository
@@ -20,6 +22,11 @@ class UserRepository
     public function findByPersonalId(int $id) : Collection
     {
         return User::query()->where('personal_id', '=', $id)->get();
+    }
+
+    public function findByClientId(int $id) : Collection
+    {
+        return User::query()->where('id', $id)->get();
     }
 
     public function getUserPersonals() : Collection

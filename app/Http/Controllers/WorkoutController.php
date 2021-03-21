@@ -2,82 +2,99 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Exercise;
 use App\Models\Workout;
+use App\Repositories\ExerciseRepository;
+use App\Repositories\WorkoutRepository;
+use App\Services\WorkoutService;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class WorkoutController extends Controller
 {
+    private WorkoutService $service;
+    private WorkoutRepository $repository;
+    private ExerciseRepository $exerciseRepository;
+
+    public function __construct()
+    {
+        $this->service = new WorkoutService();
+        $this->repository = new WorkoutRepository();
+        $this->exerciseRepository = new ExerciseRepository();
+    }
+
     public function index()
     {
-        return view('workouts.index', ['workouts' => Workout::all()]);
+        try {
+            $workouts = $this->repository->getAll();
+            return view('workouts.index', ['workouts' => $workouts]);            
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Falha ao recuperar treinos.');
+        }
     }
 
     public function create()
     {
-        return view('workouts.create', ['exercises' => Exercise::all()]);
+        try {
+            $exercises = $this->exerciseRepository->getAll();
+            return view('workouts.create', ['exercises' => $exercises]);            
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Falha ao recuperar exercícios.');
+        }
     }
 
     public function show(Workout $workout)
     {
-        return view('workouts.edit', [
-            'workout'            => $workout,
-            'exercises'          => Exercise::all(),
-            'selected_exercises' => $workout->exercises()->get(),
-        ]);
+        try {
+            $exercises = $this->exerciseRepository->getAll();
+            return view('workouts.edit', [
+                'workout'            => $workout,
+                'exercises'          => $exercises,
+                'selected_exercises' => $workout->exercises()->get(),
+            ]);            
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Falha ao recuperar exercícios.');
+        }
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name'      => ['required', 'string'],
-            'days'      => ['required'],
-            'exercises' => ['required'],
-        ]);
-
-        $days = implode('; ', $request->days);
-
-        $workout = Workout::create([
-            'name' => $request->name,
-            'day'  => $days,
-        ]);
-
-        // Relation
-        foreach ($request->exercises as $exercise) {
-            $workout->exercises()->attach($exercise);
+        try {
+            $this->service->save($request->all());
+            return redirect()
+                ->route('workouts.index')
+                ->with('success', 'Treino cadastrado com sucesso.');
+        } catch (ValidationException $e) {
+            return redirect()->back()->withErrors($e->validator->getMessageBag());
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Falha na criação do treino.');
         }
-
-        return redirect()->route('workouts.index')->with('success', 'Treino cadastrado com sucesso.');
     }
 
     public function update(Request $request, Workout $workout)
     {
-        $request->validate([
-            'name'      => ['required', 'string'],
-            'days'      => ['required'],
-            'exercises' => ['required'],
-        ]);
-
-        $days = implode('; ', $request->days);
-
-        $workout->update([
-            'name' => $request->name,
-            'day'  => $days,
-        ]);
-
-        // Relation
-        $workout->exercises()->detach();
-        foreach ($request->exercises as $exercise) {
-            $workout->exercises()->attach($exercise);
+        try {
+            $this->service->update($workout, $request->all());
+            return redirect()
+                ->route('workouts.index')
+                ->with('success', 'Treino atualizado com sucesso.');
+        } catch (ValidationException $e) {
+            return redirect()->back()->withErrors($e->validator->getMessageBag());
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Falha na criação do treino.');
         }
-
-        return redirect()->route('workouts.index')->with('success', 'Treino atualizado com sucesso.');
     }
 
     public function destroy(Workout $workout)
     {
-        $workout->delete();
-
-        return redirect()->back()->with('message', 'Treino deletado com sucesso.');
+        try {
+            $this->service->delete($workout);
+            return redirect()
+                ->back()
+                ->with('message', 'Treino deletado com sucesso.');
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->with('error', 'Não foi possível deletar este treino.');
+        }
     }
 }

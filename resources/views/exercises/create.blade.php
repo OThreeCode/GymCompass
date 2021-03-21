@@ -43,25 +43,25 @@
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
                             <select id="muscle_group" name="muscle_group" class="@error('muscle_group') border-red-500 @enderror max-w-lg block focus:ring-green-500 focus:border-green-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
                                 <option value="">Selecione uma opção...</option>
-                                <option value="dorsal" @if(old('muscle_group') == 'dorsal') selected @endif>
+                                <option value="Dorsal" @if(old('muscle_group') == 'Dorsal') selected @endif>
                                     Dorsal
                                 </option>
-                                <option value="peitoral" @if(old('muscle_group') == 'peitoral') selected @endif>
+                                <option value="Peitoral" @if(old('muscle_group') == 'Peitoral') selected @endif>
                                     Peitoral
                                 </option>
-                                <option value="quadriceps" @if(old('muscle_group') == 'quadriceps') selected @endif>
+                                <option value="Quadriceps" @if(old('muscle_group') == 'Quadriceps') selected @endif>
                                     Quadríceps
                                 </option>
-                                <option value="deltóides" @if(old('muscle_group') == 'deitóides') selected @endif>
+                                <option value="Deltóides" @if(old('muscle_group') == 'Deitóides') selected @endif>
                                     Deltóides
                                 </option>
-                                <option value="isquiotibiais" @if(old('muscle_group') == 'isquiotibiais') selected @endif>
+                                <option value="Isquiotibiais" @if(old('muscle_group') == 'Isquiotibiais') selected @endif>
                                     Isquiotibiais
                                 </option>
-                                <option value="biceps" @if(old('muscle_group') == 'biceps') selected @endif>
+                                <option value="Biceps" @if(old('muscle_group') == 'Biceps') selected @endif>
                                     Bíceps
                                 </option>
-                                <option value="triceps" @if(old('muscle_group') == 'triceps') selected @endif>
+                                <option value="Triceps" @if(old('muscle_group') == 'Triceps') selected @endif>
                                     Tríceps
                                 </option>
                             </select>

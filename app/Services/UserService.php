@@ -83,12 +83,12 @@ class UserService
     {
         return [
             'name'     => 'required|string',
-            'email'    => 'required|string|email|unique:users',
+            'email'    => 'required|string|email',
             'role'     => 'required', Rule::in([
                 User::ROLE_ADMIN,
                 User::ROLE_CLIENT,
                 User::ROLE_PERSONAL,
             ]),
-        ]; 
+        ];
     }
 }

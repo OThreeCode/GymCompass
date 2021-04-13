@@ -80,9 +80,13 @@
                                           Editar
                                        </a>
                                     </td>
-                                    <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                       <x-delete-modal route='users.destroy' model='user' id='{{ $user->id }}' />
-                                    </td>
+                                    @if(!($user->id === Auth::user()->id))
+                                       <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+                                          <x-delete-modal route='users.destroy' model='user' id='{{ $user->id }}' />
+                                       </td>
+                                    @else
+                                       <td></td>
+                                    @endif
                                  </tr>
                               @endforeach
                            </tbody>

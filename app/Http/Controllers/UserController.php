@@ -39,7 +39,7 @@ class UserController extends Controller
     {
         try {
             $workouts = $this->workoutRepository->getAll();
-            return view('users.create', ['workouts' => $workouts]);            
+            return view('users.create', ['workouts' => $workouts]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Falha ao recuperar treinos.');
         }

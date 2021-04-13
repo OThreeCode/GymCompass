@@ -2,9 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Attendance;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 
 class UserRepository

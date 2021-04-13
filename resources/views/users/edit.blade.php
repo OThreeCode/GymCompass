@@ -96,7 +96,8 @@
                             </div>
                         </div>
                     @endif
-
+                    
+                    @if($user->role === "Client")
                     <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                         <label class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                             Selecione os treinos
@@ -114,6 +115,7 @@
                             <div id="selectedWorkouts" class="grid grid-cols-3 gap-4 auto-cols-max"></div>
                         </div>
                     </div>
+                    @endif
                 </div>
             
                 <div class="pt-5">

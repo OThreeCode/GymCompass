@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 /**
  * @property int $id
  * @property int $personal_id
+ * @property int $plan_id
  * @property string $name
  * @property string $email
  * @property string $role
@@ -37,6 +38,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function plan()
+    {
+        return $this->belongsTo(Plan::class);
+    }
 
     public function personal()
     {

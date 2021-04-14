@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Plan;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -65,5 +66,10 @@ class UserRepository
     public function delete(User $user) : void
     {
         $user->delete();
+    }
+
+    public function subscribeToPlan(User $user, Plan $plan)
+    {
+        $user->plan()->associate($plan);
     }
 }

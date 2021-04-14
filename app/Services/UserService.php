@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Plan;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Database\Eloquent\Collection;
@@ -63,6 +64,11 @@ class UserService
     public function delete(User $user) : void
     {
         $this->repository->delete($user);
+    }
+
+    public function subscribeUser(User $user, Plan $plan)
+    {
+        (new UserRepository)->subscribeToPlan($user, $plan);
     }
 
     protected function rulesForStore() : array

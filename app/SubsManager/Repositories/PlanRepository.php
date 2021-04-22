@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Repositories;
+namespace App\SubsManager\Repositories;
 
-use App\Models\Plan;
-use App\Models\User;
+use App\Models\SubsManager\Plan;
 use Illuminate\Database\Eloquent\Collection;
 
 class PlanRepository

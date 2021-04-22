@@ -2,45 +2,40 @@
 
 namespace App\Services;
 
-use App\Models\Plan;
-use App\Models\User;
-use App\Repositories\PlanRepository;
+use App\Models\SubsManager\Product;
+use App\Repositories\ProductRepository;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
-class PlanService
+class ProductService
 {
-    public function save(array $data) : Plan
+    public function save(array $data) : Product
     {
         $validator = Validator::make($data, $this->rules());
+
         if ($validator->fails()) {
             throw ValidationException::withMessages($validator->errors()->toArray());
         }
         
-        return (new PlanRepository)->save($data);
+        return (new ProductRepository)->save($data);
     }
 
-    public function update(Plan $plan, array $data) : Plan
+    public function update(Product $product, array $data) : Product
     {
         $validator = Validator::make($data, $this->rules());
+
         if ($validator->fails()) {
             throw ValidationException::withMessages($validator->errors()->toArray());
         }
         
-        return (new PlanRepository)->update($plan, $data);
+        return (new ProductRepository)->update($product, $data);
     }
 
-    public function delete(Plan $plan) : void
-    {
-        (new PlanRepository)->delete($plan);
-    }
-
-    protected function rules() : array
+    protected function rules()
     {
         return [
-            'name'           => 'required|string',
-            'payment_method' => 'required',
-            'exercises'      => 'required',
+            'name'        => 'required',
+            'description' => 'required',
         ];
     }
 }

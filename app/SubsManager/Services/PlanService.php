@@ -2,46 +2,44 @@
 
 namespace App\Services;
 
-use App\Models\Workout;
-use App\Repositories\WorkoutRepository;
+use App\Models\SubsManager\Plan;
+use App\SubsManager\Repositories\PlanRepository;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
-class WorkoutService
+class PlanService
 {
-    public function save(array $data) : Workout
+    public function save(array $data) : Plan
     {
         $validator = Validator::make($data, $this->rules());
-
         if ($validator->fails()) {
             throw ValidationException::withMessages($validator->errors()->toArray());
         }
-
-        return (new WorkoutRepository)->save($data);
+        
+        return (new PlanRepository)->save($data);
     }
 
-    public function update(Workout $workout, array $data) : Workout
+    public function update(Plan $plan, array $data) : Plan
     {
         $validator = Validator::make($data, $this->rules());
-
         if ($validator->fails()) {
             throw ValidationException::withMessages($validator->errors()->toArray());
         }
-
-        return (new WorkoutRepository)->update($workout, $data);        
+        
+        return (new PlanRepository)->update($plan, $data);
     }
 
-    public function delete(Workout $workout) : void
+    public function delete(Plan $plan) : void
     {
-        (new WorkoutRepository)->delete($workout);
+        (new PlanRepository)->delete($plan);
     }
 
     protected function rules() : array
     {
         return [
-            'name'      => 'required|string',
-            'days'      => 'required',
-            'exercises' => 'required',
+            'name'           => 'required|string',
+            'payment_method' => 'required',
+            'exercises'      => 'required',
         ];
     }
 }

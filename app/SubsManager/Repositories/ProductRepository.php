@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories;
+namespace App\SubsManager\Repositories;
 
 use App\Models\SubsManager\Product;
 use Illuminate\Database\Eloquent\Collection;

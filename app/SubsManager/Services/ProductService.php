@@ -1,9 +1,9 @@
 <?php
 
-namespace App\SubManager\Services;
+namespace App\SubsManager\Services;
 
 use App\Models\SubsManager\Product;
-use App\Repositories\ProductRepository;
+use App\SubsManager\Repositories\ProductRepository;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 

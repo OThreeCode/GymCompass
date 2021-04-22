@@ -7,7 +7,7 @@ use App\Repositories\ProductRepository;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
-class ProductService
+abstract class ProductService
 {
     public function save(array $data) : Product
     {
@@ -31,11 +31,5 @@ class ProductService
         return (new ProductRepository)->update($product, $data);
     }
 
-    protected function rules()
-    {
-        return [
-            'name'        => 'required',
-            'description' => 'required',
-        ];
-    }
+    abstract protected function rules() : array;
 }

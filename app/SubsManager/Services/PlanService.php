@@ -7,7 +7,7 @@ use App\SubsManager\Repositories\PlanRepository;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
-class PlanService
+abstract class PlanService
 {
     public function save(array $data) : Plan
     {
@@ -34,12 +34,5 @@ class PlanService
         (new PlanRepository)->delete($plan);
     }
 
-    protected function rules() : array
-    {
-        return [
-            'name'           => 'required|string',
-            'payment_method' => 'required',
-            'exercises'      => 'required',
-        ];
-    }
+    abstract protected function rules() : array;
 }

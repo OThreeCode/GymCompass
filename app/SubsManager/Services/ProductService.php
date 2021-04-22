@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\SubManager\Services;
 
 use App\Models\SubsManager\Product;
 use App\Repositories\ProductRepository;

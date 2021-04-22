@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\SubManager\Services;
 
 use App\Models\SubsManager\Plan;
 use App\SubsManager\Repositories\PlanRepository;

@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Plan;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Database\Eloquent\Collection;
@@ -22,19 +21,7 @@ class UserService
 
     public function getAll() : Collection
     {
-        if (Auth::user()->isPersonal()) {
-            $users = $this->repository->findByPersonalId(Auth::user()->id);
-        } else {
-            $users = $this->repository->getAll();
-        }
-
-        foreach ($users as $user) {
-            if (!$user->personal_id) {
-                continue;
-            }
-            $personal = $this->repository->findById($user->personal_id);
-            $user->personal_name = $personal->name;
-        }
+        $users = $this->repository->getAll();
 
         return $users;
     }
@@ -66,22 +53,12 @@ class UserService
         $this->repository->delete($user);
     }
 
-    public function subscribeUser(User $user, Plan $plan)
-    {
-        (new UserRepository)->subscribeToPlan($user, $plan);
-    }
-
     protected function rulesForStore() : array
     {
         return [
             'name'     => 'required|string',
             'email'    => 'required|string|email|unique:users',
             'password' => 'required|min:8|confirmed',
-            'role'     => 'required', Rule::in([
-                User::ROLE_ADMIN,
-                User::ROLE_CLIENT,
-                User::ROLE_PERSONAL,
-            ]),
         ];
     }
 
@@ -90,11 +67,6 @@ class UserService
         return [
             'name'     => 'required|string',
             'email'    => 'required|string|email',
-            'role'     => 'required', Rule::in([
-                User::ROLE_ADMIN,
-                User::ROLE_CLIENT,
-                User::ROLE_PERSONAL,
-            ]),
         ];
     }
 }

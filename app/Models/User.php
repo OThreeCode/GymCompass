@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\SubsManager\Plan;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -42,31 +43,6 @@ class User extends Authenticatable
     public function plan()
     {
         return $this->belongsTo(Plan::class);
-    }
-
-    public function personal()
-    {
-        return $this->belongsTo(User::class, 'personal_id');
-    }
-
-    public function workouts()
-    {
-        return $this->belongsToMany(Workout::class);
-    }
-
-    public function clients()
-    {
-        return $this->hasMany(User::class, 'personal_id');
-    }
-
-    public function isAdmin()
-    {
-        return $this->role === self::ROLE_ADMIN;
-    }
-
-    public function isPersonal()
-    {
-        return $this->role === self::ROLE_PERSONAL;
     }
 
     public function changePassword($new)

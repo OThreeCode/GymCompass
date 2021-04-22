@@ -14,15 +14,11 @@ class UserController extends Controller
 {
     private UserService $service;
     private UserRepository $repository;
-    private WorkoutRepository $workoutRepository;
-    private AttendanceRepository $attendanceRepository;
 
     public function __construct()
     {
         $this->service = new UserService();
         $this->repository = new UserRepository();
-        $this->workoutRepository = new WorkoutRepository();
-        $this->attendanceRepository = new AttendanceRepository();
     }
 
     public function index()

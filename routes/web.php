@@ -1,10 +1,8 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ExerciseController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\WorkoutController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'index');
@@ -18,8 +16,4 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('users', UserController::class);
     Route::get('users/info/{user}', [UserController::class, 'info'])->name('users.info');
-
-    Route::resource('exercises', ExerciseController::class);
-
-    Route::resource('workouts', WorkoutController::class);
 });

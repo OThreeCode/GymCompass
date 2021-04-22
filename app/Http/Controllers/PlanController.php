@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Plan;
+use App\Models\SubsManager\Plan;
 use Illuminate\Http\Request;
 use App\Services\PlanService;
 use App\Repositories\PlanRepository;
@@ -10,17 +10,6 @@ use App\Repositories\ProductRepository;
 
 class PlanController extends Controller
 {
-    private PlanService $service;
-    private PlanRepository $repository;
-    private ProductRepository $productRepository;
-
-    public function __construct()
-    {
-        $this->service           = new PlanService();
-        $this->repository        = new PlanRepository();
-        $this->productRepository = new ProductRepository();
-    }
-
     public function index()
     {
     }

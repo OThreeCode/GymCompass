@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $name
  * @property string $description
+ * @property string $author
+ * @property string $genre
+ * @property string $isbn
  */
 class Product extends Model
 {

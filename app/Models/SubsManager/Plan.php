@@ -23,10 +23,10 @@ class Plan extends Model
     protected $guarded = [];
 
     // Payment Types
-    const PAYMENTS_ALLOWED = [];
+    const PAYMENTS_ALLOWED = ['Credit', 'Debit', 'Slip'];
 
     // Plan Duration
-    const PLANS_DURATION = [];
+    const PLANS_DURATION = ['Weekly', 'Monthly', 'Quarterly'];
 
     public function products()
     {

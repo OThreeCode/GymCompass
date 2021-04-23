@@ -23,10 +23,10 @@ class Plan extends Model
     protected $guarded = [];
 
     // Payment Types
-    const PAYMENTS_ALLOWED = [];
+    const PAYMENTS_ALLOWED = ['Credit', 'Debit', 'Slip'];
 
     // Plan Duration
-    const PLANS_DURATION = [];
+    const PLANS_DURATION = ['Monthly', 'Quarterly', 'Semiannual', 'Annual'];
 
     public function products()
     {
@@ -37,4 +37,6 @@ class Plan extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public
 }

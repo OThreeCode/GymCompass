@@ -7,8 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property string $name
- * @property string $description
+ * @property string $title
+ * @property string $singer
+ * @property string $album
+ * @property string $genre
+ * @property float $duration
  */
 class Product extends Model
 {

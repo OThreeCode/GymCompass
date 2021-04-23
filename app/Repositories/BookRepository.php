@@ -10,7 +10,7 @@ class BookRepository extends ProductRepository
     public function save(array $data) : Product
     {
         return Product::create([
-            'name'        => $data['name'],
+            'title'       => $data['title'],
             'description' => $data['description'],
             'author'      => $data['author'],
             'genre'       => $data['genre'],

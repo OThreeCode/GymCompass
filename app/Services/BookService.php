@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\SubsManager\Product;
 use App\Repositories\BookRepository;
 use App\SubsManager\Services\ProductService;
 
@@ -18,7 +17,7 @@ class BookService extends ProductService
     protected function rules() : array
     {
         return [
-            'name'        => 'required|string',
+            'title'       => 'required|string',
             'description' => 'required|string',
             'author'      => 'required|string',
             'genre'       => 'required|string',

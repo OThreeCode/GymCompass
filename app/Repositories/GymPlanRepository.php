@@ -11,8 +11,10 @@ class GymPlanRepository extends PlanRepository
     {
         return Plan::create([
             'name'           => $data['name'],
+            'price'          => $data['price'],
             'payment_method' => $data['payment_method'],
             'duration'       => $data['duration'],
+            'due_date'       => $data['due_date'],
         ]);
     }
 

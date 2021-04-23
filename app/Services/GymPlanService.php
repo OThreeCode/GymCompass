@@ -20,8 +20,10 @@ class GymPlanService extends PlanService
     {
         return [
             'name'           => 'required|string',
+            'price'          => 'required|float',
             'payment_method' => 'required', Rule::in(Plan::PAYMENTS_ALLOWED),
             'duration'       => 'required', Rule::in(Plan::PLANS_DURATION),
+            'due_date'       => 'required',
         ];
     }
 }

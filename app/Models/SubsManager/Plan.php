@@ -19,6 +19,12 @@ class Plan extends Model
 
     protected $guarded = [];
 
+    // Payment Types
+    const PAYMENTS_ALLOWED = [];
+
+    // Plan Duration
+    const PLANS_DURATION = [];
+
     public function products()
     {
         return $this->belongsToMany(Product::class);

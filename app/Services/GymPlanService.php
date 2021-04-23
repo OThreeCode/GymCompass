@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\GymPlanRepository;
-use App\SubManager\Services\PlanService;
+use App\SubsManager\Services\PlanService;
 
 class GymPlanService extends PlanService
 {

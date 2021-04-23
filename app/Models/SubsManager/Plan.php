@@ -4,12 +4,15 @@ namespace App\Models\SubsManager;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
  * @property string $name
+ * @property float $price
  * @property string $payment_method
- * @property int $plan_duration
+ * @property int $duration
+ * @property Carbon $due_date
  */
 class Plan extends Model
 {

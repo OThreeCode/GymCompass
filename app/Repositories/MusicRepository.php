@@ -10,7 +10,7 @@ class MusicRepository extends ProductRepository
     public function save(array $data) : Product
     {
         return Product::create([
-            'name'     => $data['name'],
+            'title'    => $data['title'],
             'singer'   => $data['singer'],
             'album'    => $data['album'],
             'genre'    => $data['genre'],

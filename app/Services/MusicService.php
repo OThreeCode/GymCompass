@@ -7,7 +7,7 @@ use App\SubsManager\Services\ProductService;
 
 class BookService extends ProductService
 {
-    private MusicRepository $musickRepository;
+    private MusicRepository $musicRepository;
 
     public function __construct()
     {

@@ -29,8 +29,9 @@ class UserRepository
     public function update(User $user, array $data) : User
     {
         $user->update([
-            'name'        => $data['name'],
-            'email'       => $data['email'],
+            'name'    => $data['name'],
+            'email'   => $data['email'],
+            'plan_id' => $data['plan']
         ]);
 
         return $user;

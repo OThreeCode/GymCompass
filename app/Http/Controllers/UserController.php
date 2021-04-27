@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Services\UserService;
+use App\SubsManager\Repositories\PlanRepository;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -12,6 +13,9 @@ class UserController extends Controller
 {
     private UserService $service;
     private UserRepository $repository;
+
+    // Plan
+    // private PlanRepository $planRepository;
 
     public function __construct()
     {
@@ -32,8 +36,8 @@ class UserController extends Controller
     public function create()
     {
         try {
-            $workouts = $this->workoutRepository->getAll();
-            return view('users.create', ['workouts' => $workouts]);
+            // $plans = $this->planRepository->getAll();
+            return view('users.create');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Falha ao recuperar treinos.');
         }
@@ -42,8 +46,10 @@ class UserController extends Controller
     public function show(User $user)
     {
         try {
+            // $plans = $this->planRepository->getAll();
             return view('users.edit', [
                 'user' => $user,
+                'plans' => $plans ?? null,
             ]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Falha ao recuperar dados.');

@@ -60,11 +60,8 @@
                                 <option value="Admin" @if(old('role') == 'Admin') selected @endif>
                                     Administrador(a)
                                 </option>
-                                <option value="Personal" @if(old('role') == 'Personal') selected @endif>
-                                    Personal Trainer
-                                </option>
                                 <option value="Client" @if(old('role') == 'Client') selected @endif>
-                                    Aluno(a)
+                                    Cliente
                                 </option>
                             </select>
                             @error('role')

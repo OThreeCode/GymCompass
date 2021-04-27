@@ -6,7 +6,7 @@ use App\Models\SubsManager\Plan;
 use App\Models\SubsManager\Product;
 use App\SubsManager\Repositories\PlanRepository;
 use App\SubsManager\Services\PlanService;
-use Dotenv\Exception\ValidationException;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 
 class PlanController extends Controller

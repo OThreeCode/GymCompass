@@ -4,11 +4,26 @@ namespace App\SubsManager\Services;
 
 use App\Models\SubsManager\Plan;
 use App\SubsManager\Repositories\PlanRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 abstract class PlanService
 {
+    private PlanRepository $repository;
+
+    public function __construct()
+    {
+        $this->repository = new PlanRepository();
+    }
+
+    public function getAll() : Collection
+    {
+        $plans = $this->repository->getAll();
+
+        return $plans;
+    }
+    
     public function save(array $data) : Plan
     {
         $validator = Validator::make($data, $this->rules());

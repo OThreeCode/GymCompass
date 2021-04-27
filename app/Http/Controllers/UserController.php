@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Repositories\AttendanceRepository;
 use App\Repositories\UserRepository;
-use App\Repositories\WorkoutRepository;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -41,28 +39,11 @@ class UserController extends Controller
         }
     }
 
-    public function info(User $user)
-    {
-        try {
-            return view('users.show', [
-                'user' => $user,
-                'attendance' => $this->attendanceRepository->getByUserId($user->id),
-            ]);
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Falha ao recuperar dados.');
-        }
-    }
-
     public function show(User $user)
     {
         try {
-            $workouts = $this->workoutRepository->getAll();
-            $personals = $this->repository->getUserPersonals();
             return view('users.edit', [
-                'user'              => $user,
-                'personals'         => $personals,
-                'workouts'          => $workouts,
-                'selected_workouts' => $user->workouts()->get(),
+                'user' => $user,
             ]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Falha ao recuperar dados.');

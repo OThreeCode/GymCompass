@@ -57,7 +57,7 @@
                                 @if($products)
                                     @foreach($products as $product)
                                        <option value="product" @if(old('role') == 'product') selected @endif>
-                                          {{ $product->name }}
+                                          {{ $product->title }}
                                        </option>
                                     @endforeach
                                  @endif

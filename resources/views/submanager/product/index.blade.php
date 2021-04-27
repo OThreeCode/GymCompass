@@ -1,6 +1,6 @@
 @extends('layouts.authenticated')
 
-@section('title', 'Usuários')
+@section('title', 'Produtos')
 
 @section('content')
 <main class="relative z-0 flex-1 overflow-y-auto focus:outline-none" tabindex="0">
@@ -20,14 +20,23 @@
                   <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                      <div class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
                         <table class="min-w-full divide-y divide-gray-200">
-                           @if($products)
+                           @if(!$products->isEmpty())
                            <thead class="bg-gray-50">
                               <tr>
                                  <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                                    Nome
+                                    Titulo
                                  </th>
                                  <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                                     Descrição
+                                 </th>
+                                 <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                                    Autor
+                                 </th>
+                                 <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                                    Genêro
+                                 </th>
+                                 <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                                    ISBN
                                  </th>
                                  <th scope="col" class="relative px-6 py-3">
                                     <span class="sr-only">Editar</span>
@@ -41,10 +50,19 @@
                               @foreach($products as $product)
                                  <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                       {{ $product->name }}
+                                       {{ $product->title }}
                                     </td>
                                     <td>
                                        {{ $product->description ?? 'Nenhum' }}
+                                    </td>
+                                    <td>
+                                       {{ $product->author ?? 'Nenhum' }}
+                                    </td>
+                                    <td>
+                                       {{ $product->genre ?? 'Nenhum' }}
+                                    </td>
+                                    <td>
+                                       {{ $product->isbn ?? 'Nenhum' }}
                                     </td>
                                     <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                                        <a href="{{ route('products.show', ['product' => $product->id]) }}" class="text-green-600 hover:text-green-900">

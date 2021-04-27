@@ -4,32 +4,22 @@ namespace App\SubsManager\Services;
 
 use App\Models\SubsManager\Product;
 use App\SubsManager\Repositories\ProductRepository;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Collection;
 
 abstract class ProductService
 {
-    public function save(array $data) : Product
+    public function __construct()
     {
-        $validator = Validator::make($data, $this->rules());
-
-        if ($validator->fails()) {
-            throw ValidationException::withMessages($validator->errors()->toArray());
-        }
-        
-        return (new ProductRepository)->save($data);
+        $this->repository = new ProductRepository();
     }
 
-    public function update(Product $product, array $data) : Product
-    {
-        $validator = Validator::make($data, $this->rules());
+    abstract protected function getAll() : Collection;
 
-        if ($validator->fails()) {
-            throw ValidationException::withMessages($validator->errors()->toArray());
-        }
-        
-        return (new ProductRepository)->update($product, $data);
-    }
+    abstract protected function save(array $data) : Product;
+
+    abstract protected function update(Product $product, array $data) : Product;
+
+    abstract protected function delete(Product $product);
 
     abstract protected function rules() : array;
 }

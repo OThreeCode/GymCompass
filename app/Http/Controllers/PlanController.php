@@ -4,28 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Models\SubsManager\Plan;
 use App\Models\SubsManager\Product;
-use App\SubsManager\Repositories\PlanRepository;
-use App\SubsManager\Services\PlanService;
+use App\Repositories\LibraryPlanRepository;
+use App\Services\LibraryPlanService;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 
 class PlanController extends Controller
 {
-    // private PlanService $service;
-    // private PlanRepository $repository;
+    private LibraryPlanService $service;
+    private LibraryPlanRepository $repository;
 
-    // public function __construct()
-    // {
-    //     $this->service = new PlanService();
-    //     $this->repository = new PlanRepository();
-    // }
+    public function __construct()
+    {
+        $this->service = new LibraryPlanService();
+        $this->repository = new LibraryPlanRepository();
+    }
 
     public function index()
     {
         try {
-            // $plans = $this->service->getAll();
+            $plans = $this->service->getAll();
+
             return view('submanager.plan.index', [
-                'plans' => $plans ?? null,
+                'plans' => $plans,
             ]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Falha ao recuperar planos.');
@@ -35,9 +36,9 @@ class PlanController extends Controller
     public function create()
     {
         try {
-            // $products = Product::all();
+            $products = Product::all();
             return view('submanager.plan.create', [
-                'products' => $products ?? null,
+                'products' => $products,
             ]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Falha ao recuperar planos.');

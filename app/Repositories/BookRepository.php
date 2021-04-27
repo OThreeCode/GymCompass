@@ -4,9 +4,15 @@ namespace App\Repositories;
 
 use App\Models\SubsManager\Product;
 use App\SubsManager\Repositories\ProductRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 class BookRepository extends ProductRepository
 {
+    public function getAll() : Collection
+    {
+        return Product::all();
+    }
+    
     public function save(array $data) : Product
     {
         return Product::create([

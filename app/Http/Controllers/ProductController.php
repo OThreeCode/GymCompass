@@ -3,28 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\SubsManager\Product;
-use App\Repositories\ProductRepository;
-use App\Services\ProductService;
+use App\Repositories\BookRepository;
+use App\Services\BookService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 class ProductController extends Controller
 {
-    // private ProductService $service;
-    // private ProductRepository $repository;
+    private BookService $service;
+    private BookRepository $repository;
 
-    // public function __construct()
-    // {
-    //     $this->service = new ProductService();
-    //     $this->repository = new ProductRepository();
-    // }
+    public function __construct()
+    {
+        $this->service = new BookService();
+        $this->repository = new BookRepository();
+    }
 
     public function index()
     {
         try {
-            // $products = $this->service->getAll();
+            $products = $this->service->getAll();
             return view('submanager.product.index', [
-                'products' => $products ?? null,
+                'products' => $products,
             ]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Falha ao recuperar produtos.');

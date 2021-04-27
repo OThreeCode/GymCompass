@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\SubsManager\Plan;
 use App\Repositories\LibraryPlanRepository;
 use App\SubsManager\Services\PlanService;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\Rule;
 
 class LibraryPlanService extends PlanService
@@ -14,6 +15,13 @@ class LibraryPlanService extends PlanService
     public function __construct()
     {
         $this->libraryRepository = new LibraryPlanRepository;
+    }
+
+    public function getAll() : Collection
+    {
+        $plans = $this->libraryRepository->getAll();
+
+        return $plans;
     }
       
     protected function rules() : array

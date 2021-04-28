@@ -23,7 +23,6 @@
 			</div>
 			<div class="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
 				<div class="py-4">
-					Olar
 				</div>
 			</div>
 		</div>

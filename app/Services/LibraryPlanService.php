@@ -45,6 +45,11 @@ class LibraryPlanService extends PlanService
         
         return $this->libraryRepository->update($plan, $data);
     }
+
+    public function delete(Plan $plan) : void
+    {
+        $this->libraryRepository->delete($plan);
+    }
       
     protected function rules() : array
     {

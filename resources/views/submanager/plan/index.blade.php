@@ -47,12 +47,12 @@
                                        {{ $plan->price}}
                                     </td>
                                     <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                       <a href="{{ route('plans.show', ['product' => $product->id]) }}" class="text-green-600 hover:text-green-900">
+                                       <a href="{{ route('plans.show', ['plan' => $plan->id]) }}" class="text-green-600 hover:text-green-900">
                                           Editar
                                        </a>
                                     </td>
                                     <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                       <x-delete-modal route='plans.destroy' model='product' id='{{ $product->id }}' />
+                                       <x-delete-modal route='plans.destroy' model='plan' id='{{ $plan->id }}' />
                                     </td>
                                  </tr>
                               @endforeach

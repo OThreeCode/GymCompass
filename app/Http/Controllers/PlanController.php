@@ -48,8 +48,10 @@ class PlanController extends Controller
     public function show(Plan $plan)
     {
         try {
+            $products = Product::all();
             return view('submanager.plan.edit', [
                 'plan' => $plan,
+                'products' => $products,
             ]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Falha ao recuperar planos.');

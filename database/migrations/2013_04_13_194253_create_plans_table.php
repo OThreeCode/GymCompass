@@ -18,7 +18,7 @@ class CreatePlansTable extends Migration
             $table->string('name');
             $table->float('price');
             $table->string('payment_method');
-            $table->integer('duration');
+            $table->string('duration');
             $table->datetime('due_date');
         });
     }

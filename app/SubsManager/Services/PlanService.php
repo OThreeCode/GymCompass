@@ -24,25 +24,9 @@ abstract class PlanService
         return $plans;
     }
     
-    public function save(array $data) : Plan
-    {
-        $validator = Validator::make($data, $this->rules());
-        if ($validator->fails()) {
-            throw ValidationException::withMessages($validator->errors()->toArray());
-        }
-        
-        return (new PlanRepository)->save($data);
-    }
+    abstract protected function save(array $data) : Plan;
 
-    public function update(Plan $plan, array $data) : Plan
-    {
-        $validator = Validator::make($data, $this->rules());
-        if ($validator->fails()) {
-            throw ValidationException::withMessages($validator->errors()->toArray());
-        }
-        
-        return (new PlanRepository)->update($plan, $data);
-    }
+    abstract protected function update(Plan $plan, array $data) : Plan;
 
     public function delete(Plan $plan) : void
     {

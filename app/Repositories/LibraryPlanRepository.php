@@ -11,4 +11,15 @@ class LibraryPlanRepository extends PlanRepository
     {
         // Intentionally left blank
     }
+
+    public function save(array $data) : Plan
+    {
+        return Plan::create([
+            'name'           => $data['name'],
+            'price'          => $data['price'],
+            'payment_method' => $data['payment_method'],
+            'duration'       => $data['duration'],
+            'due_date'       => now(),
+        ]);
+    }
 }

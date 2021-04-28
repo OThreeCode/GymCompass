@@ -48,21 +48,21 @@
                     </div>
 
                     <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-                        <label for="role" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                        <label for="products" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                             Produto
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <select id="role" name="role" class="@error('role') border-red-500 @enderror max-w-lg block focus:ring-green-500 focus:border-green-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                            <select id="products" name="products" class="@error('products') border-red-500 @enderror max-w-lg block focus:ring-green-500 focus:border-green-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
                                 <option value="">Selecione uma opção...</option>
                                 @if($products)
                                     @foreach($products as $product)
-                                       <option value="product" @if(old('role') == 'product') selected @endif>
+                                       <option value="{{ $product->id }}" @if(old('products') == 'product') selected @endif>
                                           {{ $product->title }}
                                        </option>
                                     @endforeach
                                  @endif
                             </select>
-                            @error('role')
+                            @error('products')
                                 <div>
                                     <small class="text-sm text-red-500">{{ $message }}</small>
                                 </div>

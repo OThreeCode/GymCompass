@@ -28,10 +28,8 @@ class LibraryPlanService extends PlanService
 
     public function save(array $data) : Plan
     {
-        // dd(Plan::PAYMENTS_ALLOWED);
         $validator = Validator::make($data, $this->rules());
         if ($validator->fails()) {
-            // dd("Error");
             throw ValidationException::withMessages($validator->errors()->toArray());
         }
 

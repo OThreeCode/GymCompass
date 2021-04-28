@@ -28,7 +28,6 @@ class GymProductService extends ProductService
         $validator = Validator::make($data, $this->rules());
 
         if ($validator->fails()) {
-            dd('Uira eh gay');
             throw ValidationException::withMessages($validator->errors()->toArray());
         }
         

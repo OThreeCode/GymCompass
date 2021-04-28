@@ -17,37 +17,13 @@ abstract class PlanService
         $this->repository = new PlanRepository();
     }
 
-    public function getAll() : Collection
-    {
-        $plans = $this->repository->getAll();
-
-        return $plans;
-    }
+    abstract protected function getAll() : Collection;
     
-    public function save(array $data) : Plan
-    {
-        $validator = Validator::make($data, $this->rules());
-        if ($validator->fails()) {
-            throw ValidationException::withMessages($validator->errors()->toArray());
-        }
-        
-        return (new PlanRepository)->save($data);
-    }
+    abstract protected function save(array $data) : Plan;
 
-    public function update(Plan $plan, array $data) : Plan
-    {
-        $validator = Validator::make($data, $this->rules());
-        if ($validator->fails()) {
-            throw ValidationException::withMessages($validator->errors()->toArray());
-        }
-        
-        return (new PlanRepository)->update($plan, $data);
-    }
+    abstract protected function update(Plan $plan, array $data) : Plan;
 
-    public function delete(Plan $plan) : void
-    {
-        (new PlanRepository)->delete($plan);
-    }
+    abstract protected function delete(Plan $plan) : void;
 
     abstract protected function rules() : array;
 }

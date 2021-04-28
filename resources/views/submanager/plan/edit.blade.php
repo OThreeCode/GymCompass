@@ -25,7 +25,7 @@
                             Nome
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input type="text" name="name" id="name" value="{{ old('name') }}" class="@error('name') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                            <input type="text" name="name" id="name" value="{{ $plan->name }}" class="@error('name') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
                             @error('name')
                                 <div>
                                     <small class="text-sm text-red-500">{{ $message }}</small>
@@ -39,7 +39,7 @@
                             Preço
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input type="text" id="price" name="price" value="{{ old('price') }}" class="@error('price') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                            <input type="text" id="price" name="price" value="{{ $plan->price }}" class="@error('price') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
                             @error('price')
                                 <div>
                                     <small class="text-sm text-red-500">{{ $message }}</small>
@@ -76,7 +76,7 @@
                             Forma de pagamento
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input type="text" value="{{ old('payment_method') }}" name="payment_method" id="payment_method" class="@error('payment_method') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                            <input type="text" value="{{ $plan->payment_method }}" name="payment_method" id="payment_method" class="@error('payment_method') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
                             @error('payment_method')
                                 <div>
                                     <small class="text-sm text-red-500">{{ $message }}</small>
@@ -90,7 +90,7 @@
                             Duração
                         </label>
                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                            <input type="text" name="duration" value="{{ old('duration') }}" id="duration" class="@error('duration') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                            <input type="text" name="duration" value="{{ $plan->duration }}" id="duration" class="@error('duration') border-red-500 @enderror max-w-lg block w-full shadow-sm focus:ring-green-500 focus:border-green-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
                             @error('duration')
                                 <div>
                                     <small class="text-sm text-red-500">{{ $message }}</small>

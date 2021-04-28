@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Repositories\GymPlanRepository;
 use App\Repositories\UserRepository;
 use App\Services\UserService;
 use App\SubsManager\Repositories\PlanRepository;
@@ -15,12 +16,14 @@ class UserController extends Controller
     private UserRepository $repository;
 
     // Plan
-    // private PlanRepository $planRepository;
+    private GymPlanRepository $planRepository;
 
     public function __construct()
     {
         $this->service = new UserService();
         $this->repository = new UserRepository();
+
+        $this->planRepository = new GymPlanRepository();
     }
 
     public function index()
@@ -36,7 +39,6 @@ class UserController extends Controller
     public function create()
     {
         try {
-            // $plans = $this->planRepository->getAll();
             return view('users.create');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Falha ao recuperar treinos.');
@@ -46,7 +48,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         try {
-            // $plans = $this->planRepository->getAll();
+            $plans = $this->planRepository->getAll();
             return view('users.edit', [
                 'user' => $user,
                 'plans' => $plans ?? null,

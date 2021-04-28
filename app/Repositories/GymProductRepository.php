@@ -4,9 +4,15 @@ namespace App\Repositories;
 
 use App\SubsManager\Repositories\ProductRepository;
 use App\Models\SubsManager\Product;
+use Illuminate\Database\Eloquent\Collection;
 
 class GymProductRepository extends ProductRepository
 {
+    public function getAll() : Collection
+    {
+        return Product::all();
+    }
+
     public function save(array $data) : Product
     {
         return Product::create([

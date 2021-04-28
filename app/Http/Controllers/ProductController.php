@@ -3,26 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\SubsManager\Product;
-use App\Repositories\ProductRepository;
-use App\Services\ProductService;
+use App\Repositories\GymProductRepository;
+use App\Services\GymProductService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 class ProductController extends Controller
 {
-    // private ProductService $service;
-    // private ProductRepository $repository;
+    private GymProductService $service;
+    private GymProductRepository $repository;
 
-    // public function __construct()
-    // {
-    //     $this->service = new ProductService();
-    //     $this->repository = new ProductRepository();
-    // }
+    public function __construct()
+    {
+        $this->service = new GymProductService();
+        $this->repository = new GymProductRepository();
+    }
 
     public function index()
     {
         try {
-            // $products = $this->service->getAll();
+            $products = $this->service->getAll();
             return view('submanager.product.index', [
                 'products' => $products ?? null,
             ]);

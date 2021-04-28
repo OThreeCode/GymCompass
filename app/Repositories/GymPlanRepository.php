@@ -14,7 +14,7 @@ class GymPlanRepository extends PlanRepository
             'price'          => $data['price'],
             'payment_method' => $data['payment_method'],
             'duration'       => $data['duration'],
-            'due_date'       => $data['due_date'],
+            'due_date'       => now(),
         ]);
     }
 
